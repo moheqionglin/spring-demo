@@ -1,5 +1,6 @@
-package com.moheqionglin.dao;
+package com.moheqionglin.demo;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class TestDao {
+    @Value("${application.name}")
     private String name;
     private String sex;
 

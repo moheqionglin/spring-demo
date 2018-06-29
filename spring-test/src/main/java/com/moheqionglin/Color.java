@@ -1,15 +1,7 @@
-package com.moheqionglin.services;
+package com.moheqionglin;
 
-/**
- * @author wanli zhou
- * @created 2018-06-24 8:29 PM.
- */
-public class TestBean {
-    private String name ;
-
-    public void print(){
-        System.out.println("--->");
-    }
+public class Color {
+    private String name;
 
     public String getName() {
         return name;
@@ -21,9 +13,8 @@ public class TestBean {
 
     @Override
     public String toString() {
-        return "TestBean{" +
+        return "Color{" +
                 "name='" + name + '\'' +
                 '}';
     }
 }
-

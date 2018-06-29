@@ -1,9 +1,9 @@
-package com.moheqionglin.config;
+package com.moheqionglin.demo;
 
-import com.moheqionglin.services.TestBean;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
 
 /**
  * @author wanli zhou
@@ -11,7 +11,8 @@ import org.springframework.context.annotation.ComponentScan;
  */
 //@configurable 相当于 xml
 @Configurable
-@ComponentScan(basePackages = {"com.moheqionglin.dao"})
+@ComponentScan(basePackages = {"com.moheqionglin.demo"})
+@PropertySource("classpath:application.properties")
 public class Config {
 
     //@Bean相当于  xml的 bean标签，
