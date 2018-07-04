@@ -2,8 +2,7 @@ package com.moheqionglin.beanpostprocessor;
 
 
 import com.moheqionglin.AppConfig;
-import com.moheqionglin.Color;
-import javafx.application.Application;
+import com.moheqionglin.beandefinitionRegistorPostProcessor.Color;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
