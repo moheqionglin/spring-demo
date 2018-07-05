@@ -47,6 +47,7 @@
         <module>spring-kafka</module>
         <module>spring-rocketmq</module>
         <module>spring-test</module>
+        <module>spring-cache</module>
     </modules>
 
 </project>

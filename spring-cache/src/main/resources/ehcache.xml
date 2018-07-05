@@ -1,0 +1,55 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="ehcache.xsd"
+         updateCheck="true"
+         monitoring="autodetect"
+         dynamicConfig="true">
+
+    <diskStore path="~/Desktop/" />
+
+    <!--<cache name="book"-->
+           <!--maxElementsInMemory="1"-->
+           <!--maxEntriesLocalHeap="1"-->
+           <!--maxEntriesLocalDisk="1000"-->
+           <!--eternal="false"-->
+           <!--diskSpoolBufferSizeMB="20"-->
+           <!--timeToIdleSeconds="300" timeToLiveSeconds="600"-->
+           <!--memoryStoreEvictionPolicy="LFU"-->
+           <!--transactionalMode="off"-->
+           <!--overflowToDisk="true"-->
+    <!--&gt;-->
+        <!--<persistence strategy="localTempSwap" />-->
+    <!--</cache>-->
+
+    <defaultCache
+            maxElementsInMemory="10000"
+            maxElementsOnDisk="0"
+            eternal="true"
+            overflowToDisk="true"
+            diskPersistent="false"
+            timeToIdleSeconds="0"
+            timeToLiveSeconds="0"
+            diskSpoolBufferSizeMB="50"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LFU"
+    />
+    <cache name="book"
+           maxElementsInMemory="1"
+           maxElementsOnDisk="0"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           diskSpoolBufferSizeMB="50"
+           diskExpiryThreadIntervalSeconds="120"
+    />
+
+    <cache name="animal"
+           maxEntriesLocalHeap="10000"
+           maxEntriesLocalDisk="1000"
+           eternal="false"
+           diskSpoolBufferSizeMB="20"
+           timeToIdleSeconds="300" timeToLiveSeconds="600"
+           memoryStoreEvictionPolicy="LFU"
+           transactionalMode="off">
+        <persistence strategy="localTempSwap" />
+    </cache>
+
+</ehcache>
