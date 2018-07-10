@@ -343,7 +343,7 @@ https://www.cnblogs.com/onmyway20xx/p/6590603.html
 -Xloggc:/Users/wanli.zhou/Desktop/gc.log  -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=20m
 
 
- -server   -Xmx1000m -Xms100m -Xmn300m -Xss256k -XX:PermSize=300m    -Xloggc:/Users/wanli.zhou/Desktop/gc.log  -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=20m 
+ -server   -Xmx1000m -Xms100m -Xmn300m -Xss256k -XX:PermSize=300m    -Xloggc:/Users/wanli.zhou/Desktop/gc.log  -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=20m
     *
     * */
 }
