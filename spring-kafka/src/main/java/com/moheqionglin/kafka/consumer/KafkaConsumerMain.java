@@ -1,5 +1,6 @@
 package com.moheqionglin.kafka.consumer;
 
+import com.moheqionglin.kafka.consumer.seek.KafkaSeekConsumerConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -27,8 +28,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class KafkaConsumerMain {
 
     public static void main(String[] args) throws InterruptedException {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(KafkaConsumerConfig.class);
-
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(KafkaSeekConsumerConfig.class);
 
     }
 }

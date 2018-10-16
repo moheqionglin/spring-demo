@@ -20,7 +20,8 @@ public class AddressListener {
 
     private final CountDownLatch latch1 = new CountDownLatch(1);
 
-    @KafkaListener(id = "wanli-local-point-cg-2",  topics = "point-topic-dev4", containerFactory = "addressKafkaListenerContainerFactory")
+    @KafkaListener(id = "wanli-local-point-cg-2",  topics = "point-topic-dev4",
+            containerFactory = "addressKafkaListenerContainerFactory")
 //    @KafkaListener(id = "wanli-local-point-cg", topicPartitions =
 //        {  @TopicPartition(topic = "point-topic-1",
 //                partitionOffsets = {
@@ -44,7 +45,7 @@ public class AddressListener {
             }
             long offset = record.offset();
             int partition = record.partition();
-            System.out.println("-->Address消费者, [id = " + value.getId() + ", topic = " + topic + ", partition = " + partition + ", offset = " + offset + ", offsets = " + offsets + ", att = " + att + "], key = " + key + ", value = " + value);
+            System.out.println("-->Address消费者," + Thread.currentThread().getName() + " [id = " + value.getId() + ", topic = " + topic + ", partition = " + partition + ", offset = " + offset + ", offsets = " + offsets + ", att = " + att + "], key = " + key + ", value = " + value);
             try {
                 Thread.sleep(1 * 1000);
             } catch (InterruptedException e) {

@@ -79,7 +79,7 @@ public class PersonListener {
     public void listenBytes(ConsumerRecord<Long, Person> record,
                        @Header(KafkaHeaders.OFFSET) List<Long> offsets,
                        Acknowledgment acknowledgment) {
-        try {
+//        try {
             String topic = record.topic();
             Object key1 = record.key();
             String key = key1 == null ? "null" : key1.toString();
@@ -91,15 +91,17 @@ public class PersonListener {
             }
             long offset = record.offset();
             int partition = record.partition();
-            System.out.println("-->Person消费者, [id = " + value.getId() + ", topic = " + topic + ", partition = " + partition + ", offset = " + offset + ", offsets = " + offsets + ", att = " + att + "], key = " + key + ", value = " + value);
-            try {
-                Thread.sleep(1 * 1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            System.out.println("-->Person消费者, " + Thread.currentThread().getName() + " [id = " + value.getId() + ", topic = " + topic + ", partition = " + partition + ", offset = " + offset + ", offsets = " + offsets + ", att = " + att + "], key = " + key + ", value = " + value);
             acknowledgment.acknowledge();
+//            try {
+//                Thread.sleep(5 * 1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
 
-        }catch (Exception e){
+            int i = 1 / 0;
+
+//        }catch (Exception e){
 //            Person value1 = record.value();
 //            System.out.println("ERROR " + value1.getId() + " , " + record.partition() + ", "+ e.getMessage());
             //0- 300 303 306 309
@@ -108,7 +110,7 @@ public class PersonListener {
 //            if(value1.getId() == 306 || value1.getId() == 304 || value1.getId() == 305){
 //                acknowledgment.acknowledge();
 //            }
-        }
+//        }
 
         acknowledgment.acknowledge();
     }

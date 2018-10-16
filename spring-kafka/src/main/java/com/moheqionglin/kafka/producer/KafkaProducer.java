@@ -26,35 +26,18 @@ public class KafkaProducer {
     public void sendMessage(String topicName, Long key, Person person) {
         System.out.println("==>>>>>>" + kafkaTemplate.partitionsFor(topicName).size());
 
-        int partition = (int) (person.getId() % 3);
-        ProducerRecord<Long, Person> record = new ProducerRecord(topicName, partition,  person.getId(), person);
+        int partition = (int) (person.getId() % 9);
+        ProducerRecord<Long, Person> record = new ProducerRecord(topicName, partition, person.getId(), person);
         record.headers().add(new RecordHeader("attachment", "万里-附件".getBytes(Charsets.UTF_8)));
         kafkaTemplate.send(record);
     }
 
     public void sendAddressMessage(String topicName, Long key, Address address) {
-        try {
-            System.out.println("==>>>>>>" + addressKafkaTemplate.partitionsFor(topicName).size());
+        System.out.println("==>>>>>>" + addressKafkaTemplate.partitionsFor(topicName).size());
 
-            int partition = (int) (address.getId() % 3);
-            ProducerRecord<Long, Address> record = new ProducerRecord(topicName, partition, address.getId(), address);
-            record.headers().add(new RecordHeader("attachment", "万里-附件".getBytes(Charsets.UTF_8)));
-            ListenableFuture<SendResult<Long, Address>> future = addressKafkaTemplate.send(record);
-            future.addCallback(new ListenableFutureCallback<SendResult<Long, Address>>() {
-
-                @Override
-                public void onSuccess(SendResult<Long, Address> integerAddressSendResult) {
-
-                }
-
-                @Override
-                public void onFailure(Throwable ex) {
-                    ex.printStackTrace();
-                }
-
-            });
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        int partition = (int) (address.getId() % 3);
+        ProducerRecord<Long, Address> record = new ProducerRecord(topicName, partition, address.getId(), address);
+        record.headers().add(new RecordHeader("attachment", "万里-附件".getBytes(Charsets.UTF_8)));
+        addressKafkaTemplate.send(record);
     }
 }
