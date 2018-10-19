@@ -1,4 +1,4 @@
-package com.moheqionglin.curator.recipes.leaderselector;
+package com.moheqionglin.curator;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.leader.LeaderSelector;

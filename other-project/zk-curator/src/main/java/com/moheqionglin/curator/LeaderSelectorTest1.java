@@ -1,11 +1,10 @@
-package com.moheqionglin.curator.recipes.leaderselector;
+package com.moheqionglin.curator;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 
 import java.util.Random;
-import java.util.concurrent.locks.LockSupport;
 
 /**
  * @author wanli.zhou

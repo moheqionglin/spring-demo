@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context = "http://www.springframework.org/schema/context"
+	   xmlns:rdb="http://www.dangdang.com/schema/ddframe/rdb"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.dangdang.com/schema/ddframe/rdb
+                        http://www.dangdang.com/schema/ddframe/rdb/rdb.xsd
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+                        http://www.springframework.org/schema/context
+    					http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                        ">
+
+
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<!-- 数据源驱动类可不写，Druid默认会自动根据URL识别DriverClass -->
+		<property name="driverClassName" value="org.postgresql.Driver" />
+
+		<!-- 基本属性 url、user、password currentSchema=CSP&amp; -->
+		<property name="url" value="jdbc:postgresql://127.0.0.1:3308/demo?useUnicode=true&amp;characterEncoding=utf-8" />
+		<property name="username" value="root" />
+		<property name="password" value="123456" />
+
+
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="1" />
+		<property name="minIdle" value="1" />
+		<property name="maxActive" value="10" />
+
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="60000" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="validationQuery" value="SELECT 'x' FROM csp.group_entity_map" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 如果用Oracle，则把poolPreparedStatements配置为true，mysql可以配置为false。 -->
+		<property name="poolPreparedStatements" value="false" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+	</bean>
+
+	<!-- user_ticket的分表策略 -->
+	<rdb:strategy id="userTicketTableStrategy" sharding-columns="createdTime"  algorithm-class="com.moheiqonglin.shard.ShardingStrategy" />
+
+	<rdb:data-source id="shardingDataSource">
+		<rdb:sharding-rule data-sources="dataSource">
+			<rdb:table-rules>
+				<!--一个月一张表用户表-->
+				<rdb:table-rule logic-table="users" actual-tables="users_2018_8,users_2018_9,users_2018_10"
+								table-strategy="userTicketTableStrategy" />
+			</rdb:table-rules>
+		</rdb:sharding-rule>
+	</rdb:data-source>
+
+	<!--JdbcTemplate -->
+	<bean id="shardingJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource">
+			<ref bean="shardingDataSource" />
+		</property>
+	</bean>
+
+	<!--TransactionManager -->
+	<bean name="shardingTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="shardingDataSource"></property>
+	</bean>
+
+	<!-- 使用annotation定义事务,实际做法就是在类上使用@Transactional注解,这个配置才能开启注解事务支持 -->
+	<tx:annotation-driven transaction-manager="shardingTransactionManager" proxy-target-class="true"/>
+	<context:component-scan base-package="com.moheiqonglin.shard" />
+
+</beans>

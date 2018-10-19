@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:rdb="http://www.dangdang.com/schema/ddframe/rdb"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.dangdang.com/schema/ddframe/rdb
+                        http://www.dangdang.com/schema/ddframe/rdb/rdb.xsd
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+                        ">
+
+	<bean id="defaultDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName">
+			<value>${datasource.driverClassName}</value>
+		</property>
+		<property name="url">
+			<value>${datasource.url}</value>
+		</property>
+		<property name="username">
+			<value>${datasource.username}</value>
+		</property>
+		<property name="password">
+			<value>${datasource.password}</value>
+		</property>
+		<property name="maxActive">
+			<value>${datasource.maxActive}</value>
+		</property>
+		<property name="maxIdle">
+			<value>${datasource.maxIdle}</value>
+		</property>
+		<property name="maxWait">
+			<value>${datasource.maxWait}</value>
+		</property>
+		<property name="defaultAutoCommit">
+			<value>${datasource.defaultAutoCommit}</value>
+		</property>
+	</bean>
+
+	<bean id="readDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName">
+			<value>${datasource.readonly.driverClassName}</value>
+		</property>
+		<property name="url">
+			<value>${datasource.readonly.url}</value>
+		</property>
+		<property name="username">
+			<value>${datasource.readonly.username}</value>
+		</property>
+		<property name="password">
+			<value>${datasource.readonly.password}</value>
+		</property>
+		<property name="maxActive">
+			<value>${datasource.readonly.maxActive}</value>
+		</property>
+		<property name="maxIdle">
+			<value>${datasource.readonly.maxIdle}</value>
+		</property>
+		<property name="maxWait">
+			<value>${datasource.readonly.maxWait}</value>
+		</property>
+		<property name="defaultAutoCommit">
+			<value>${datasource.readonly.defaultAutoCommit}</value>
+		</property>
+	</bean>
+
+	<rdb:master-slave-data-source id="masterSlaveDataSource" master-data-source-ref="defaultDataSource" slave-data-sources-ref="readDataSource" />
+	<!-- user_ticket的分表策略 -->
+	<rdb:strategy id="userTicketTableStrategy" sharding-columns="username"
+				  algorithm-class="com.common.sharding.SingleKeyHashShardingAlgorithm" />
+
+	<rdb:data-source id="shardingDataSource">
+		<rdb:sharding-rule data-sources="masterSlaveDataSource">
+			<rdb:table-rules>
+				<rdb:table-rule logic-table="user_ticket" actual-tables="user_ticket_01,user_ticket_02,user_ticket_03,user_ticket_04,user_ticket_05,user_ticket_06,user_ticket_07,user_ticket_08,user_ticket_09,user_ticket_10,user_ticket_11,user_ticket_12,user_ticket_13,user_ticket_14,user_ticket_15,user_ticket_16,user_ticket_17,user_ticket_18,user_ticket_19,user_ticket_20"
+								table-strategy="userTicketTableStrategy" />
+			</rdb:table-rules>
+		</rdb:sharding-rule>
+	</rdb:data-source>
+
+	<!--JdbcTemplate -->
+	<bean id="shardingJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource">
+			<ref bean="shardingDataSource" />
+		</property>
+	</bean>
+
+	<!--TransactionManager -->
+	<bean name="shardingTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="shardingDataSource"></property>
+	</bean>
+
+	<!-- 使用annotation定义事务,实际做法就是在类上使用@Transactional注解,这个配置才能开启注解事务支持 -->
+	<tx:annotation-driven transaction-manager="shardingTransactionManager" proxy-target-class="true"/>
+</beans>

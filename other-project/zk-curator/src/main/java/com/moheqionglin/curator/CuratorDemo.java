@@ -1,10 +1,8 @@
 package com.moheqionglin.curator;
 
 import com.google.common.base.Charsets;
-import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
-import org.apache.curator.framework.api.CreateModable;
 import org.apache.curator.framework.api.CuratorEvent;
 import org.apache.curator.framework.api.CuratorListener;
 import org.apache.curator.framework.api.UnhandledErrorListener;
@@ -12,8 +10,6 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
-
-import java.nio.charset.Charset;
 
 /**
  * @author wanli.zhou
