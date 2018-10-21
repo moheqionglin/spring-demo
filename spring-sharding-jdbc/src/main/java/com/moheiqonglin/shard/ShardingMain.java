@@ -1,8 +1,11 @@
 package com.moheiqonglin.shard;
 
 import com.moheiqonglin.shard.domain.User;
+import com.moheiqonglin.shard.domain.UserRowMapper;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.Date;
 import java.util.List;
 
 /**

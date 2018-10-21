@@ -17,12 +17,12 @@
 
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<!-- 数据源驱动类可不写，Druid默认会自动根据URL识别DriverClass -->
-		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 
 		<!-- 基本属性 url、user、password currentSchema=CSP&amp; -->
-		<property name="url" value="jdbc:postgresql://127.0.0.1:3308/demo?useUnicode=true&amp;characterEncoding=utf-8" />
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/shardingDemo?characterEncoding=UTF-8&amp;useSSL=false" />
 		<property name="username" value="root" />
-		<property name="password" value="123456" />
+		<property name="password" value="wanli123" />
 
 
 		<!-- 配置初始化大小、最小、最大 -->
@@ -59,6 +59,13 @@
 			</rdb:table-rules>
 		</rdb:sharding-rule>
 	</rdb:data-source>
+
+	<!--JdbcTemplate -->
+	<bean id="normalJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
 
 	<!--JdbcTemplate -->
 	<bean id="shardingJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">

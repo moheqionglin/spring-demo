@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,9 +23,10 @@ public class ShardingDao {
 
     public List<User> query(){
         final String sql = "select id, name, createdTime,modifiedTime from users " +
-                " where id = ? and createdTime between ? and ? order by createdTime ASC offset ? limit ?";
+                " where id = ? and createdTime between ? and ? order by createdTime ASC limit ? offset ? ";
 
-        return shardingJdbcTemplate.query(sql, new Object[]{1l, 1535437543113l, 1536734305793l, 0, 1000}, new UserRowMapper());
+        return shardingJdbcTemplate.query(sql, new Object[]{1l, new Date(1533104743000l), new Date(1540967143000l), 1000, 0}, new UserRowMapper());
     }
 
 }
+

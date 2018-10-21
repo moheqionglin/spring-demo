@@ -12,18 +12,18 @@ import java.util.*;
  * @description
  * @time 10/10/2018 2:18 PM
  */
-public class ShardingStrategy implements SingleKeyTableShardingAlgorithm<Long> {
+public class ShardingStrategy implements SingleKeyTableShardingAlgorithm<Date> {
     private final long ONE_DAY = 24 * 60 * 60 * 1000l;
 
     /**
      * allActualTableNames 所有的物理表名；shardingValue 分表的key值属性
      */
     public String doEqualSharding(final Collection<String> allActualTableNames,
-                                  final ShardingValue<Long> shardingValue) {
+                                  final ShardingValue<Date> shardingValue) {
         // 逻辑表名
         String logicTableName = shardingValue.getLogicTableName();
         // 根据比较的值，算出物理分表
-        String actualTableName = getTableByDate(logicTableName + "_", new Date(shardingValue.getValue()));
+        String actualTableName = getTableByDate(logicTableName + "_", shardingValue.getValue());
         if (allActualTableNames.contains(actualTableName))
             return actualTableName;
 
@@ -43,14 +43,14 @@ public class ShardingStrategy implements SingleKeyTableShardingAlgorithm<Long> {
      */
     @Override
     public Collection<String> doInSharding(Collection<String> allActualTableNames,
-                                           ShardingValue<Long> paramShardingValue) {
+                                           ShardingValue<Date> paramShardingValue) {
         // in表达式的值对应的数据表
         Set<String> inValueTables = new HashSet<String>();
-        Collection<Long> inValues = paramShardingValue.getValues();
+        Collection<Date> inValues = paramShardingValue.getValues();
 
         String logicTableName = paramShardingValue.getLogicTableName();
-        for (Long value : inValues) {
-            String actualTableName = getTableByDate(logicTableName + "_", new Date(value));
+        for (Date value : inValues) {
+            String actualTableName = getTableByDate(logicTableName + "_", value);
             if (allActualTableNames.contains(actualTableName))
                 inValueTables.add(actualTableName);
         }
@@ -63,13 +63,13 @@ public class ShardingStrategy implements SingleKeyTableShardingAlgorithm<Long> {
 
     @Override
     public Collection<String> doBetweenSharding(Collection<String> allActualTableNames,
-                                                ShardingValue<Long> paramShardingValue) {
+                                                ShardingValue<Date> paramShardingValue) {
         // in表达式的值对应的数据表
         Set<String> inValueTables = new HashSet<String>();
-        Range<Long> valueRange = paramShardingValue.getValueRange();
+        Range<Date> valueRange = paramShardingValue.getValueRange();
         String logicTableName = paramShardingValue.getLogicTableName();
 
-        List<String> tables = getTables(logicTableName + "_", valueRange.lowerEndpoint(), valueRange.upperEndpoint());
+        List<String> tables = getTables(logicTableName + "_", valueRange.lowerEndpoint().getTime(), valueRange.upperEndpoint().getTime());
 
         for (String table : tables) {
             if (allActualTableNames.contains(table))
