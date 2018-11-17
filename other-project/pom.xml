@@ -14,6 +14,10 @@
         <module>easy-excel</module>
         <module>embed-es</module>
         <module>zk-curator</module>
+        <module>netty-app</module>
+        <module>helidon-oracle</module>
+        <module>geotools</module>
+        <module>dubbo-app</module>
     </modules>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>other-project</artifactId>
