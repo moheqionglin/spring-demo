@@ -16,6 +16,11 @@ public class PreProcessHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if(msg instanceof String){
+            double j = 2;
+            for (int i = 0 ; i < 10000000; i ++){
+                j = Math.pow(i, j);
+
+            }
             ctx.fireChannelRead(" Pre Process ==>" + msg);
         }
 

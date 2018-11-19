@@ -23,7 +23,7 @@ public class TelnetServer {
         //接受client链接的 event loop group
         EventLoopGroup connectorEventLoopGroup = new NioEventLoopGroup(1);
         //处理SocketChannel的线程组,接受数据的读写操作。
-        EventLoopGroup workerEventLoopGroup = new NioEventLoopGroup();
+        EventLoopGroup workerEventLoopGroup = new NioEventLoopGroup(1);
         try {
 
             ServerBootstrap server = new ServerBootstrap();
@@ -32,7 +32,7 @@ public class TelnetServer {
                     .childHandler(new ServerInitializer())
                     .bind(8989);
 
-
+            System.out.println();
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();

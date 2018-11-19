@@ -13,6 +13,7 @@ import customRpc.reflect.CalculatorImpl;
  * @time 09/11/2018 5:27 PM
  */
 public class DubboServer {
+
     public static void main(String[] args) {
         // 服务实现
         CalculatorImpl xxxService = new CalculatorImpl();
