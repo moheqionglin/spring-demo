@@ -1,5 +1,8 @@
 package customRpc.reflect;
 
+import customRpc.protocol.AClass;
+import customRpc.protocol.BClass;
+
 /**
  * @author wanli.zhou
  * @description
@@ -8,6 +11,11 @@ package customRpc.reflect;
 public class CalculatorImpl implements Calculator{
     @Override
     public int add(int a, int b) {
+        new AClass().print();
+        new BClass().print();
+        new BClass().print();
+        new BClass().print();
+        new BClass().print();
         return a + b;
     }
 

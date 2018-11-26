@@ -3,6 +3,7 @@ package customRpc.protocol;
 import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ReferenceConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
+import com.alibaba.dubbo.rpc.RpcContext;
 import customRpc.reflect.Calculator;
 
 /**
@@ -32,6 +33,7 @@ public class DubboConsumer {
         reference.setInterface(Calculator.class);
         reference.setVersion("1.0.0");
 
+        RpcContext.getContext().setAttachment("test", "===>");
         // 和本地bean一样使用xxxService
         Calculator xxxService = reference.get(); // 注意：此代理对象内部封装了所有通讯细节，对象较重，请缓存复用
 
