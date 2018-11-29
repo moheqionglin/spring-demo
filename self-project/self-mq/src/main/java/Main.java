@@ -10,7 +10,7 @@ import java.util.Queue;
 public class Main {
     public static void main(String[] args) {
 
-        Broker broker = new Broker(10, 0);
+        Broker broker = new Broker(10);
 
         final Producer producer = new Producer(broker);
         final Consumer consumer = new Consumer(broker);

@@ -19,6 +19,7 @@
         <module>geotools</module>
         <module>dubbo-app</module>
         <module>codec-all</module>
+        <module>scenarios-application</module>
     </modules>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>other-project</artifactId>

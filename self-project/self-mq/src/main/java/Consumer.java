@@ -12,7 +12,7 @@ public class Consumer {
 
     public Message poll(){
         synchronized (broker){
-            while (broker.getQueueSize().get() < broker.getMinSize()){
+            while (broker.remaindSize() > 0){
                 try {
                     broker.wait();
                 } catch (InterruptedException e) {

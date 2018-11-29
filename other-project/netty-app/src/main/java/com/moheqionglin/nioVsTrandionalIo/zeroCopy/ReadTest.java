@@ -1,5 +1,7 @@
 package com.moheqionglin.nioVsTrandionalIo.zeroCopy;
 
+import sun.nio.ch.DirectBuffer;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -28,7 +30,6 @@ public class ReadTest {
         long start = System.currentTimeMillis() ;
         FileInputStream in = new FileInputStream(FILE_PATH);
         byte jvmBuffer[] = new byte[in.available()];
-
         in.read(jvmBuffer);
         long end = System.currentTimeMillis() - start;
         System.out.println("jvmBufferIO Costs " + end);
@@ -63,16 +64,6 @@ public class ReadTest {
 //        jvmBufferIO();
 //        directBufferIO();
         mappedMemoryIO();
-//        List<ByteBuffer> list = new ArrayList<>();
-//        for(int i = 0 ; i < 1000; i ++){
-//            if(list.size() >= 9){
-//                list = new ArrayList<>();
-//            }
-//            ByteBuffer directBuffer = ByteBuffer.allocateDirect(1024 * 1024);
-//            list.add(directBuffer);
-//            Thread.sleep(300);
-//
-//        }
 
 
     }

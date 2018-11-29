@@ -11,16 +11,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Broker {
     private Queue<Message> queue = new LinkedList<>();
     private int maxSize;
-    private int minSize;
     private AtomicInteger queueSize = new AtomicInteger();
 
     public AtomicInteger getQueueSize() {
         return queueSize;
     }
 
-    public Broker(int maxSize, int minSize) {
+    public Broker(int maxSize) {
         this.maxSize = maxSize;
-        this.minSize = minSize;
     }
 
     public Queue<Message> getQueue() {
@@ -31,19 +29,11 @@ public class Broker {
         this.queue = queue;
     }
 
-    public int getMaxSize() {
-        return maxSize;
-    }
-
     public void setMaxSize(int maxSize) {
         this.maxSize = maxSize;
     }
 
-    public int getMinSize() {
-        return minSize;
-    }
-
-    public void setMinSize(int minSize) {
-        this.minSize = minSize;
+    public int remaindSize(){
+        return maxSize - queueSize.get();
     }
 }

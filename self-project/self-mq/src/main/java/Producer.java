@@ -19,7 +19,7 @@ public class Producer {
 
     public void send(Message message){
         synchronized (broker){
-            while (broker.getQueue().size() > broker.getMaxSize()){
+            while (broker.remaindSize() < 0){
                 try {
                     broker.wait();
                 } catch (InterruptedException e) {
@@ -34,7 +34,7 @@ public class Producer {
 
     public void sendAsync(Message message, SendSuccessCallback sendSuccessCallback, Object ctx){
         synchronized (broker){
-            while (broker.getQueue().size() > broker.getMaxSize()){
+            while (broker.remaindSize() < 0){
                 try {
                     broker.wait();
                 } catch (InterruptedException e) {
