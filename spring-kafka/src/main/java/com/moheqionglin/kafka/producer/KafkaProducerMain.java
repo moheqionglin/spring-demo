@@ -1,5 +1,6 @@
 package com.moheqionglin.kafka.producer;
 
+import com.moheqionglin.kafka.SelfConfig;
 import com.moheqionglin.kafka.Serializer.Address.Address;
 import com.moheqionglin.kafka.Serializer.person.Person;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -32,7 +33,7 @@ public class KafkaProducerMain {
             p.setId(Long.valueOf(i));
             p.setAddress(new Address(Long.valueOf(i), "上海", "浦东", "高航"));
             p.setOthre(20l);
-            kafkaProducer.sendMessage("point-topic-dev3", Long.valueOf(i), p);
+            kafkaProducer.sendMessage(SelfConfig.personTopic, Long.valueOf(i), p);
         }
 
 //        for(int i = 0; i < 10; i ++){

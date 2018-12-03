@@ -1,13 +1,11 @@
-package com.moheqionglin.kafka.consumer;
+package com.moheqionglin.kafka.consumer.commonConsumer;
 
 import com.moheqionglin.kafka.SelfConfig;
 import com.moheqionglin.kafka.Serializer.Address.Address;
 import com.moheqionglin.kafka.Serializer.person.Person;
 import com.moheqionglin.kafka.consumer.seek.KafkaSeekConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.common.serialization.BytesDeserializer;
 import org.apache.kafka.common.serialization.LongDeserializer;
-import org.apache.kafka.common.utils.Bytes;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +21,7 @@ import java.util.Map;
 
 @Configuration
 @EnableKafka
-@ComponentScan(basePackages = "com.moheqionglin.kafka.consumer")
-@Import(KafkaSeekConsumerConfig.class)
+@ComponentScan(basePackages = "com.moheqionglin.kafka.consumer.commonConsumer")
 public class KafkaConsumerConfig {
 
     @Bean
@@ -60,6 +57,7 @@ public class KafkaConsumerConfig {
         ConcurrentKafkaListenerContainerFactory<Long, Person> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         factory.setConcurrency(1);
+        factory.setAutoStartup(false);
         //
         factory.getContainerProperties().setAckMode(AbstractMessageListenerContainer.AckMode.MANUAL);
         return factory;
@@ -106,7 +104,7 @@ public class KafkaConsumerConfig {
         return new AddressListener();
     }
 
-    @Bean
+//    @Bean
     public Listener1 listener1(){
         return new Listener1();
     }

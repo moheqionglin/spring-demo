@@ -1,15 +1,10 @@
 package com.moheqionglin.kafka.consumer.seek;
 
 import com.moheqionglin.kafka.SelfConfig;
-import com.moheqionglin.kafka.Serializer.Address.Address;
 import com.moheqionglin.kafka.Serializer.person.Person;
-import com.moheqionglin.kafka.consumer.AddressListener;
-import com.moheqionglin.kafka.consumer.Listener1;
-import com.moheqionglin.kafka.consumer.PersonListener;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.LongDeserializer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;

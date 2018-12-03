@@ -1,7 +1,12 @@
-package com.moheqionglin.kafka.consumer;
+package com.moheqionglin.kafka.consumer.commonConsumer;
 
+import com.moheqionglin.kafka.Serializer.person.Person;
 import com.moheqionglin.kafka.consumer.seek.KafkaSeekConsumerConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
+import org.springframework.kafka.config.KafkaListenerEndpointRegistry;
+import org.springframework.kafka.listener.MessageListenerContainer;
 
 /**
  * Kafka 消费一个新topic，或者 用一个新的group消费一个老的topic的话， 默认是从最近的一条消息（也就是，consumer脸上kafka见到的一条消息开始消费。）
@@ -28,7 +33,16 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class KafkaConsumerMain {
 
     public static void main(String[] args) throws InterruptedException {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(KafkaSeekConsumerConfig.class);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(KafkaConsumerConfig.class);
+
+
+        KafkaListenerEndpointRegistry registry = context.getBean(KafkaListenerEndpointRegistry.class);
+
+
+        Thread.sleep(10000);
+        MessageListenerContainer listenerContainer = registry.getListenerContainer("wanli-local-point-cg-22");
+        listenerContainer.start();
+
 
     }
 }

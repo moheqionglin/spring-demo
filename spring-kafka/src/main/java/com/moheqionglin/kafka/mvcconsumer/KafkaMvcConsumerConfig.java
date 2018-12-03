@@ -1,11 +1,6 @@
 package com.moheqionglin.kafka.mvcconsumer;
 
 import com.moheqionglin.kafka.SelfConfig;
-import com.moheqionglin.kafka.Serializer.Address.Address;
-import com.moheqionglin.kafka.Serializer.person.Person;
-import com.moheqionglin.kafka.consumer.AddressListener;
-import com.moheqionglin.kafka.consumer.Listener1;
-import com.moheqionglin.kafka.consumer.PersonListener;
 import com.moheqionglin.kafka.consumer.seek.KafkaSeekConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.LongDeserializer;
@@ -18,7 +13,6 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.AbstractMessageListenerContainer;
-import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import java.util.HashMap;
 import java.util.Map;

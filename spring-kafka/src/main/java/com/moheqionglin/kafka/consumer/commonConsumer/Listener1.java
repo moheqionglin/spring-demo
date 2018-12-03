@@ -1,4 +1,4 @@
-package com.moheqionglin.kafka.consumer;
+package com.moheqionglin.kafka.consumer.commonConsumer;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.listener.MessageListener;

@@ -1,7 +1,8 @@
-package com.moheqionglin.kafka.consumer;
+package com.moheqionglin.kafka.consumer.commonConsumer;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Charsets;
+import com.moheqionglin.kafka.SelfConfig;
 import com.moheqionglin.kafka.Serializer.person.Person;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.utils.Bytes;
@@ -10,12 +11,23 @@ import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 
+import javax.annotation.PostConstruct;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class PersonListener {
 
+    @PostConstruct
+    public void init(){
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        scheduledExecutorService.scheduleAtFixedRate(() ->{
+            System.out.println("ping pang");
+        }, 100, 10, TimeUnit.SECONDS);
+    }
 
     private final CountDownLatch latch1 = new CountDownLatch(1);
 
@@ -67,7 +79,7 @@ public class PersonListener {
 
 
 
-    @KafkaListener(id = "wanli-local-point-cg-1",  topics = "point-topic-dev3", containerFactory = "kafkaListenerContainerFactory")
+    @KafkaListener(id = "wanli-local-point-cg-22",  topics = SelfConfig.personTopic, containerFactory = "kafkaListenerContainerFactory")
 //    @KafkaListener(id = "wanli-local-point-cg", topicPartitions =
 //        {  @TopicPartition(topic = "point-topic-1",
 //                partitionOffsets = {
@@ -79,7 +91,7 @@ public class PersonListener {
     public void listenBytes(ConsumerRecord<Long, Person> record,
                        @Header(KafkaHeaders.OFFSET) List<Long> offsets,
                        Acknowledgment acknowledgment) {
-//        try {
+        try {
             String topic = record.topic();
             Object key1 = record.key();
             String key = key1 == null ? "null" : key1.toString();
@@ -92,25 +104,23 @@ public class PersonListener {
             long offset = record.offset();
             int partition = record.partition();
             System.out.println("-->Person消费者, " + Thread.currentThread().getName() + " [id = " + value.getId() + ", topic = " + topic + ", partition = " + partition + ", offset = " + offset + ", offsets = " + offsets + ", att = " + att + "], key = " + key + ", value = " + value);
-            acknowledgment.acknowledge();
 //            try {
 //                Thread.sleep(5 * 1000);
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
 
-            int i = 1 / 0;
 
-//        }catch (Exception e){
-//            Person value1 = record.value();
-//            System.out.println("ERROR " + value1.getId() + " , " + record.partition() + ", "+ e.getMessage());
-            //0- 300 303 306 309
-            //1- 301 304 307
-            //2- 302 305 308
-//            if(value1.getId() == 306 || value1.getId() == 304 || value1.getId() == 305){
-//                acknowledgment.acknowledge();
-//            }
-//        }
+        }catch (Exception e){
+            Person value1 = record.value();
+            System.out.println("ERROR " + value1.getId() + " , " + record.partition() + ", "+ e.getMessage());
+//            0- 300 303 306 309
+//            1- 301 304 307
+//            2- 302 305 308
+            if(value1.getId() == 306 || value1.getId() == 304 || value1.getId() == 305){
+                acknowledgment.acknowledge();
+            }
+        }
 
         acknowledgment.acknowledge();
     }

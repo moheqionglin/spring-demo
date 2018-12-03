@@ -1,4 +1,4 @@
-package com.moheqionglin.kafka.consumer;
+package com.moheqionglin.kafka.consumer.commonConsumer;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Charsets;
