@@ -1,6 +1,5 @@
 package com.moheqionglin.aop.warnning;
 
-import javafx.scene.Parent;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Component;
  * @time 10/12/2018 3:03 PM
  */
 @Component
-public class Children extends Parent implements IInterface{
+public class Children implements IInterface{
     protected void print(){
         System.out.println("Children --> ");
     }
@@ -18,7 +17,6 @@ public class Children extends Parent implements IInterface{
         System.out.println("otherPublicMethod ->");
     }
 
-    @Override
     public void iprint() {
         System.out.println("Children -> iprint >>");
     }

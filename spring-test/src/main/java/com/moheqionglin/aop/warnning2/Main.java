@@ -1,4 +1,4 @@
-package com.moheqionglin.aop.warnning;
+package com.moheqionglin.aop.warnning2;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -12,8 +12,8 @@ public class Main {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(JavaConfig.class);
 
-        IInterface children = (IInterface) annotationConfigApplicationContext.getBean("children");
-        children.iprint();
+        SimpleBean simpleBean = (SimpleBean) annotationConfigApplicationContext.getBean("simpleBean");
+        simpleBean.print();
 
 
     }
