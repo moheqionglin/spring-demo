@@ -105,9 +105,9 @@ public class ReadTest {
 
         for(int i = 0 ; i < 10 ; i ++)
         //176  92
-//        jvmBufferByShardIO();
+        jvmBufferByShardIO();
         //107 85
-        jvmBufferByShardWithNIO();
+//        jvmBufferByShardWithNIO();
 
 
 //        directBufferIO();

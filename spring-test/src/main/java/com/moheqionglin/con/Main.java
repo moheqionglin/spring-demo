@@ -3,7 +3,7 @@ package com.moheqionglin.con;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class ConMain {
+public class Main {
     public static void main(String[] args) {
 
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Config.class);

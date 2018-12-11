@@ -1,4 +1,4 @@
-package com.moheqionglin.demo;
+package com.moheqionglin.simpleDemo;
 
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;

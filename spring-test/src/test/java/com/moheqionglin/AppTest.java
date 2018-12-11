@@ -1,8 +1,8 @@
 package com.moheqionglin;
 
-import com.moheqionglin.demo.Config;
-import com.moheqionglin.demo.TestDao;
-import com.moheqionglin.demo.TestBean;
+import com.moheqionglin.simpleDemo.Config;
+import com.moheqionglin.simpleDemo.TestDao;
+import com.moheqionglin.simpleDemo.TestBean;
 import com.sun.tools.attach.AttachNotSupportedException;
 import com.sun.tools.attach.VirtualMachine;
 import com.sun.tools.attach.VirtualMachineDescriptor;

@@ -1,7 +1,7 @@
-package com.moheqionglin.demo;
+package com.moheqionglin.simpleDemo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
@@ -9,7 +9,7 @@ import javax.annotation.PostConstruct;
  * @author wanli zhou
  * @created 2018-06-24 8:29 PM.
  */
-@ComponentScan
+@Component
 public class TestBean {
     private String name ;
 

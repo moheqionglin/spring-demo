@@ -1,17 +1,14 @@
-package com.moheqionglin;
+package com.moheqionglin.simpleDemo;
 
-import com.moheqionglin.simpleDemo.Config;
-import com.moheqionglin.simpleDemo.TestBean;
-import com.moheqionglin.simpleDemo.TestDao;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
- * Hello world!
+ * @author wanli.zhou
+ * @description
+ * @time 10/12/2018 5:33 PM
  */
-public class App {
-
-//https://www.logicbig.com/tutorials/spring-framework/spring-core/bean-definition.html
+public class Main {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Config.class);
 
@@ -24,7 +21,6 @@ public class App {
 
         TestDao td = (TestDao) applicationContext.getBean("testDao");
         System.out.println(td);
-
 
     }
 }
