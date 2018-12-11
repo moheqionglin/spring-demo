@@ -1,4 +1,4 @@
-package com.moheqionglin.aop.warnning2;
+package com.moheqionglin.aop.warnning3;
 
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,10 @@ public class SimpleBean{
     @SimpleValid("void valid")
     public String print(){
         System.out.println("SimpleBean --> ");
-        return "--->";
+        return "SimpleBean.print.return";
     }
 
+    public void print1(){
+        System.out.println(print());
+    }
 }
