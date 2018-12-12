@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomAspect {
 
-    @Around("execution(public * com.moheqionglin.aop.warnning3.*.*(..)) && @annotation(simpleValid)")
+    @Around("execution( * com.moheqionglin.aop.warnning3.*.*(..)) && @annotation(simpleValid)")
     public Object process(ProceedingJoinPoint joinPoint, SimpleValid simpleValid) throws Throwable {
         System.out.println("Before>>>>");
         Object proceed = joinPoint.proceed();

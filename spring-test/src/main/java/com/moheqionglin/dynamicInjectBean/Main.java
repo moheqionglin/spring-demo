@@ -1,9 +1,7 @@
 package com.moheqionglin.dynamicInjectBean;
 
-import com.moheqionglin.simpleDemo.Config;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -22,16 +20,28 @@ public class Main {
         }
 
         BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(DynamicBean.class);
-        beanDefinitionBuilder.addPropertyReference("testDao", "testDao");
+//        beanDefinitionBuilder.addPropertyReference("testDao", "testDao");
+//        beanDefinitionBuilder.addDependsOn("testDao");
+        beanDefinitionBuilder.setInitMethodName("init");
+        beanDefinitionBuilder.setDestroyMethodName("destory");
+        beanDefinitionBuilder.addPropertyValue("var", "运行时注入");
+        DefaultListableBeanFactory defaultListableBeanFactory = ((AnnotationConfigApplicationContext) applicationContext).getDefaultListableBeanFactory();
+        defaultListableBeanFactory.autowireBean(applicationContext.getBean("testDao"));
+        defaultListableBeanFactory.registerBeanDefinition("dynamicBean", beanDefinitionBuilder.getBeanDefinition());
+//
 
-        AutowireCapableBeanFactory factory = applicationContext.getAutowireCapableBeanFactory();
-
-        DynamicBean dynamicBean = new DynamicBean();
-        factory.autowireBean(dynamicBean);
-        factory.initializeBean(dynamicBean, DynamicBean.class.getCanonicalName());
-        ((ConfigurableListableBeanFactory)factory).registerSingleton("dynamicBean", dynamicBean);
+// AutowireCapableBeanFactory factory = applicationContext.getAutowireCapableBeanFactory();
+//
+//        DynamicBean dynamicBean = new DynamicBean();
+//        factory.autowireBean(dynamicBean);
+//        factory.initializeBean(dynamicBean, DynamicBean.class.getCanonicalName());
+//
+//        ((ConfigurableListableBeanFactory)factory).registerSingleton("dynamicBean", dynamicBean);
 
         DynamicBean test = (DynamicBean) applicationContext.getBean("dynamicBean");
         test.print();
+
+        ((AnnotationConfigApplicationContext) applicationContext).close();
+
     }
 }

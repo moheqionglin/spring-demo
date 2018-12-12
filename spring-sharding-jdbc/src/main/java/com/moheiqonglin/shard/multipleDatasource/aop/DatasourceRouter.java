@@ -1,4 +1,4 @@
-package com.moheiqonglin.shard.multipleDatasource;
+package com.moheiqonglin.shard.multipleDatasource.aop;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.beans.BeanUtils;
@@ -17,7 +17,6 @@ import java.util.Map;
  * @description
  * @time 07/12/2018 4:04 PM
  */
-//@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class DatasourceRouter extends AbstractRoutingDataSource implements ApplicationContextAware {
     private ApplicationContext applicationContext;
 
@@ -38,7 +37,7 @@ public class DatasourceRouter extends AbstractRoutingDataSource implements Appli
         resolvedDataSources.setAccessible(true);
         Map<Object, DataSource> dsMap = (Map<Object, DataSource>) resolvedDataSources.get(this);
 
-        DruidDataSource ds1 = (DruidDataSource) applicationContext.getBean("datasource-product1");
+        DruidDataSource ds1 = (DruidDataSource) applicationContext.getBean("product1");
         DruidDataSource druidDataSource = new DruidDataSource();
         BeanUtils.copyProperties(ds1, druidDataSource);
         druidDataSource.setUrl(url);

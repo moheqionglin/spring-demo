@@ -1,22 +1,36 @@
 package com.moheqionglin.dynamicInjectBean;
 
-import com.moheqionglin.simpleDemo.TestDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  * @author wanli.zhou
  * @description
  * @time 05/12/2018 4:37 PM
  */
-@Component
 public class DynamicBean {
     @Autowired
     private TestDao testDao;
 
+    private String var;
+
     public void print(){
-        System.out.println("-->Test " + testDao.getName());
+        System.out.println("var" + var + " -->Test " + testDao.getName());
     }
 
 
+    public void init(){
+        System.out.println("DynamicBean dao init with var = " + var);
+    }
+
+    public void destory(){
+        System.out.println("DynamicBean dao destory with var = " + var);
+    }
+
+    public String getVar() {
+        return var;
+    }
+
+    public void setVar(String var) {
+        this.var = var;
+    }
 }

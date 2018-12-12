@@ -13,8 +13,7 @@ public class Main {
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(JavaConfig.class);
 
         SimpleBean simpleBean = (SimpleBean) annotationConfigApplicationContext.getBean("simpleBean");
-        simpleBean.print();
-        simpleBean.print1();
+//        simpleBean.print();
         System.out.println("同一个类内部调用被AOP方法");
         simpleBean.print1();
         System.out.println();

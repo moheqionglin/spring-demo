@@ -1,6 +1,5 @@
 package com.moheiqonglin.shard.multipleDatasource.aop;
 
-import com.moheiqonglin.shard.multipleDatasource.DatasourceHolder;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 
 /**
  * @author wanli.zhou
@@ -20,29 +18,46 @@ import java.lang.reflect.Parameter;
 @Aspect
 public class MultipleDsAop {
 
-    @Around("execution(public * com.moheiqonglin.shard.multipleDatasource.*.*(..))")
+    @Around("execution(public * com.moheiqonglin.shard.multipleDatasource.dao.*.*(..))")
     public Object routeAop(ProceedingJoinPoint pjp) throws Throwable {
-        MethodSignature signature = MethodSignature.class.cast(pjp.getSignature());
-
-        Method method = signature.getMethod();
-        Parameter[] parameters = method.getParameters();
-        Object[] args = pjp.getArgs();
-        int i = 0 ;
-        for(Parameter parameter : parameters){
-            for(Annotation annotation : parameter.getAnnotations()){
-                if(annotation instanceof DatasourceKey){
-                    DatasourceHolder.setDatasourceKey(String.valueOf(args[i]));
-                    System.out.println("-->");
-
-                }
-            }
-            i ++;
-        }
-
-        Object proceed = pjp.proceed();
         DatasourceHolder.clearDatasourceKey();
 
+        Object[] args = pjp.getArgs();
+
+        int dsKeyParamIndex = getDsKeyParamIndex(pjp);
+        if(dsKeyParamIndex < 0){
+            return pjp.proceed();
+        }
+
+        DatasourceHolder.setDatasourceKey(String.valueOf(args[dsKeyParamIndex]));
+        Object proceed = pjp.proceed();
+
         return proceed;
+    }
+
+    private int getDsKeyParamIndex(ProceedingJoinPoint pjp){
+        MethodSignature signature = MethodSignature.class.cast(pjp.getSignature());
+        Method method = signature.getMethod();
+        Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+        int paramsAnnotationLength = parameterAnnotations.length;
+        if(paramsAnnotationLength == 0){
+            return -1;
+        }
+
+        for(int i = 0; i < paramsAnnotationLength; i ++){
+            Annotation[] parameterAnnotation = parameterAnnotations[i];
+            int length = parameterAnnotation.length;
+            if(length == 0){
+                continue;
+            }
+            for(int j = 0 ; j < length ; j ++){
+                if(parameterAnnotations[i][j] instanceof DatasourceKey){
+                    return i;
+                }
+            }
+        }
+
+        return -1;
     }
 
 }

@@ -4,7 +4,7 @@ import com.moheqionglin.kafka.SelfConfig;
 import com.moheqionglin.kafka.Serializer.Address.Address;
 import com.moheqionglin.kafka.Serializer.person.Person;
 import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.serialization.*;
+import org.apache.kafka.common.serialization.LongSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

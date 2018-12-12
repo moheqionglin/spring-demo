@@ -1,6 +1,7 @@
 package com.moheiqonglin.shard.multipleDatasource;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import com.moheiqonglin.shard.multipleDatasource.aop.DatasourceRouter;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  * @author wanli.zhou
@@ -8,9 +9,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @time 07/12/2018 4:38 PM
  */
 public class Main {
+
     public static void main(String[] args) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
 
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:multiple-datasource.xml");
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(JavaConfig.class);
 
         DatasourceRouter datasourceRouter = (DatasourceRouter) context.getBean("datasourceRouter");
 //        executeSql(context);
@@ -18,12 +20,11 @@ public class Main {
         datasourceRouter.setDynamicDs("product5", url, null, null);
         executeSql(context);
 
-
     }
 
 
 
-    private static void executeSql(ClassPathXmlApplicationContext context) {
+    private static void executeSql(AnnotationConfigApplicationContext context) {
         Service service = (Service)context.getBean("service");
 
         service.doSomething("product1");
