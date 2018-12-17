@@ -7,6 +7,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * @author wanli.zhou
  * @description
  * @time 12/12/2018 9:19 PM
+ *
+ * AOP 同类内部函数调用 破解方法
  */
 public class Main {
 

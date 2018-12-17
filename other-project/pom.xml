@@ -20,10 +20,8 @@
         <module>dubbo-app</module>
         <module>codec-all</module>
         <module>scenarios-application</module>
-        <module>distribute-system</module>
     </modules>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>other-project</artifactId>
     <packaging>pom</packaging>
-
 </project>

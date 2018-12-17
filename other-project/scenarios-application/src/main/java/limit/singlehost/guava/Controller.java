@@ -1,4 +1,4 @@
-package ratelimit.guravaTokenBucket;
+package limit.singlehost.guava;
 
 import com.google.common.util.concurrent.RateLimiter;
 

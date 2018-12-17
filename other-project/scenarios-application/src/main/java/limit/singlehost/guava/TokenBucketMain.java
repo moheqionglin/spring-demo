@@ -1,4 +1,4 @@
-package ratelimit.guravaTokenBucket;
+package limit.singlehost.guava;
 
 /**
  * @author wanli.zhou
