@@ -15,6 +15,6 @@ public class SimpleBean1 {
     private SimpleBean simpleBean;
 
     public void print(){
-//        System.out.println(simpleBean.print1());
+        System.out.println(simpleBean.print());
     }
 }

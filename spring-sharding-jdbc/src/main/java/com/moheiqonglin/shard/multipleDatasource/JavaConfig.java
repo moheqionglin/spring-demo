@@ -73,6 +73,7 @@ public class JavaConfig implements BeanFactoryAware {
         for(SplitDbConfigBean splitDbConfigBean : splitDbConfigBeans){
             System.out.println(splitDbConfigBean);
             BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(DruidDataSource.class);
+
             beanDefinitionBuilder.setInitMethodName("init");
             beanDefinitionBuilder.setDestroyMethodName("close");
             beanDefinitionBuilder.addPropertyValue("driverClassName", "com.mysql.jdbc.Driver");

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class SimpleBean{
 
     @SimpleValid("void valid")
-    private String print(){
+    public String print(){
         System.out.println("SimpleBean --> ");
         return "SimpleBean.print.return";
     }

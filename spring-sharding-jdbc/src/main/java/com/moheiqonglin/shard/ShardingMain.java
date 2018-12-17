@@ -1,11 +1,8 @@
 package com.moheiqonglin.shard;
 
 import com.moheiqonglin.shard.domain.User;
-import com.moheiqonglin.shard.domain.UserRowMapper;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,6 +11,7 @@ import java.util.List;
  * @time 10/10/2018 2:17 PM
  */
 public class ShardingMain {
+    //https://stackoverflow.com/questions/13564627/spring-aop-not-working-for-method-call-inside-another-method
     public static void main(String[] args) {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-dao.xml");
         ShardingDao shardingDao = (ShardingDao) applicationContext.getBean("shardingDao");

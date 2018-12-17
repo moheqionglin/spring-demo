@@ -8,7 +8,7 @@ import com.google.common.util.concurrent.RateLimiter;
  * @description
  * @time 28/11/2018 4:36 PM
  */
-public class TokenRateBucket {
+public class TokenRateBucketTest {
     public static void main(String[] args) throws InterruptedException {
         test2();
     }

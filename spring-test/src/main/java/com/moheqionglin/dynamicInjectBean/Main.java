@@ -20,23 +20,14 @@ public class Main {
         }
 
         BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(DynamicBean.class);
-//        beanDefinitionBuilder.addPropertyReference("testDao", "testDao");
-//        beanDefinitionBuilder.addDependsOn("testDao");
         beanDefinitionBuilder.setInitMethodName("init");
         beanDefinitionBuilder.setDestroyMethodName("destory");
         beanDefinitionBuilder.addPropertyValue("var", "运行时注入");
-        DefaultListableBeanFactory defaultListableBeanFactory = ((AnnotationConfigApplicationContext) applicationContext).getDefaultListableBeanFactory();
-        defaultListableBeanFactory.autowireBean(applicationContext.getBean("testDao"));
-        defaultListableBeanFactory.registerBeanDefinition("dynamicBean", beanDefinitionBuilder.getBeanDefinition());
-//
 
-// AutowireCapableBeanFactory factory = applicationContext.getAutowireCapableBeanFactory();
-//
-//        DynamicBean dynamicBean = new DynamicBean();
-//        factory.autowireBean(dynamicBean);
-//        factory.initializeBean(dynamicBean, DynamicBean.class.getCanonicalName());
-//
-//        ((ConfigurableListableBeanFactory)factory).registerSingleton("dynamicBean", dynamicBean);
+        DefaultListableBeanFactory defaultListableBeanFactory = ((AnnotationConfigApplicationContext) applicationContext).getDefaultListableBeanFactory();
+
+//        defaultListableBeanFactory.autowireBean(applicationContext.getBean("testDao"));
+        defaultListableBeanFactory.registerBeanDefinition("dynamicBean", beanDefinitionBuilder.getBeanDefinition());
 
         DynamicBean test = (DynamicBean) applicationContext.getBean("dynamicBean");
         test.print();
