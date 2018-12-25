@@ -6,7 +6,7 @@
     </appender>
     <logger name="org.apache.kafka" level="WARN"/>
     <logger name="org.apache.kafka.common.metrics" level="WARN"/>
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>

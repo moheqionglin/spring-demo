@@ -1,13 +1,13 @@
 package com.moheqionglin.kafka.mvcconsumer;
 
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.alibaba.dubbo.common.logger.Logger;
+import com.alibaba.dubbo.common.logger.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
+
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 public class Receiver {
 
@@ -28,8 +28,6 @@ public class Receiver {
 
         LOGGER.info("start of batch receive");
         for (int i = 0; i < data.size(); i++) {
-            LOGGER.info("received message='{}' with partition-offset='{}'", data.get(i),
-                    partitions.get(i) + "-" + offsets.get(i));
             // handle message
 
             latch.countDown();

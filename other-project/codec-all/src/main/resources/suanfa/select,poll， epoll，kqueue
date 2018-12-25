@@ -1,0 +1,62 @@
+https://blog.csdn.net/davidsguo008/article/details/73556811
+## OS
+//-------------------全量轮训， 无差别事件返回----不依赖中断，cpu主动轮训（你不停给快递员打电话。）------
+select ：   当应用层每次 select()或者select(timeout)的时候， OS会阻塞的形式遍历所有的socket的fd然后找到Read，Write，Exception的状态的socket然后用文件描述符的形式返回给应用层。
+
+            缺点：  1. OS单个进程可操控的文件句柄个数有限制， 默认是1024，也就是说要一个端口接受很多连接，那么只能多开线程。虽然可以 /proc/sys/fs/file-max修改限制，但是OS性能可能降低。
+                   2. 数据拷贝问题， select要复制完整的文件句柄的数据结构到 用户态。
+                   3. 返回值包含各种类型事件（READ，WRITE，EXCEPTION）的socket， 应用层自己遍历返回列表拿到感兴趣的。
+                   4. 如果select因为超时原因，没有扫描完全socket，那么下一次select还会补上。
+
+poll：      跟select一样 poll()或者poll(timeout)的时候， OS会阻塞的形式遍历。
+
+           缺点： 包含select的2，3，4。 而poll只是用链表存储了文件句柄，这样进程可以不受操作系统单线程句柄限制。
+
+
+
+//-----------------关心[*缓冲区不满，缓冲区不空*]， 不关心[缓冲区满，缓冲区空]---- epoll 完全依赖网卡中断（快递员给你打电话） --
+epoll(linux)/kqueue(unix,freebsd)：  为了解决poll和select那种用户每次操作都要无效的 全扫描该端口下面的所有connect， 我们引入了event poll。
+       用法： 1）epoll_create(size) 创建一个能够容纳size个socket的connection。
+             2）epoll_ctl(EPOLL_ADD/EPOLL_DEL, sockete, 感兴趣的事件)， 又少个connection添加几次。
+             3）epoll_wait  返回感兴趣的事件connection列表。
+
+       >执行epoll_create时，创建了红黑树和就绪链表
+       >每当 epoll_ctl的时候, 会判断红黑树是否存在改socket，如果存在直接返回，防止重复。 不存在，给内核注册回调函数，告诉内核如果这个socket的中断来了，那么执行这个回调。回调逻辑就是把 socket放入准备就绪的缓存链表中。
+       > epoll_wait 直接返回缓存链表就ok。
+
+
+
+
+
+=====总结=====
+##异步真的是异步？站的视角不同而已
+    epoll和kqueue 他的异步只是说 应用程序操作socket异步了。 但是 操作系统内部还是同步要接受很多硬件中断，同步操作socket放到缓存列表中。
+
+    select和poll， 他是应用层 同步阻塞的执行， 但是OS 不用背一个个 中断打断。
+
+## 为什么说 AIO才是真正性能之王
+   1. 不管是 select poll epoll kqueue 都要涉及到 数据拷贝。但是AIO真正做到 0拷贝
+
+    只有IOCP是asynchronous I/O，其他机制或多或少都会有一点阻塞。
+   select低效是因为每次它都需要轮询。但低效也是相对的，视情况而定，也可通过良好的设计改善
+   epoll, kqueue、select是Reacor模式，IOCP是Proactor模式。
+   java nio包是select模型。。
+
+
+## epoll/kqueue 真的比 select/poll性能高？
+不一定， 设想个场景： 如果服务器连接活跃度100%的情况下（100个链接， 100个连接都在每时每刻传数据。）
+ 1. epoll/kqueue  在OS层面的 硬中断会导致 CPU无法处理正常工作，要每时每刻的响应网卡中断。 （相当于每时每刻都有快递给你打电话，你要每时每刻响应快递的电话。而且你不可空，必须接电话。）
+ 2. select、poll 确可以应用层可控， 避免CPU的中断。（你可以把打电话给快递，然后处理东西， 处理完再打电话。）
+
+##JDK 的selector有上面的各种实现  https://www.zhihu.com/question/20122137
+
+SelectorImpl        --> select
+PollSelectorImpl    --> poll
+EpollSelectorImpl   --> epoll
+KQueueSelectorImpl  --> kqueue
+
+## JDK 空轮训bug和帅锅
+因为OS的 poll和epoll
+
+
+

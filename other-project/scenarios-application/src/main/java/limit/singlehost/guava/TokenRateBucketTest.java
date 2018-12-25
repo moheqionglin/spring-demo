@@ -3,6 +3,8 @@ package limit.singlehost.guava;
 
 import com.google.common.util.concurrent.RateLimiter;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author wanli.zhou
  * @description
@@ -10,7 +12,7 @@ import com.google.common.util.concurrent.RateLimiter;
  */
 public class TokenRateBucketTest {
     public static void main(String[] args) throws InterruptedException {
-        test2();
+        testSoomthWarm();
     }
 
     /**
@@ -28,30 +30,52 @@ public class TokenRateBucketTest {
     public static void test1(){
         RateLimiter rateLimiter = RateLimiter.create(1);
 
-        long start = System.currentTimeMillis();
-        rateLimiter.acquire(5);
-        System.out.println(System.currentTimeMillis() - start);
+        System.out.println(rateLimiter.acquire(5));
 
-        start = System.currentTimeMillis();
-        rateLimiter.acquire();
-        System.out.println(System.currentTimeMillis() - start);
+        System.out.println(rateLimiter.acquire());
     }
 
-    public static void test2() throws InterruptedException {
-        RateLimiter rateLimiter = RateLimiter.create(3);
+    /**
+     *
+     * @throws InterruptedException
+     * 囤货
+     *
+     *
+     */
 
-        rateLimiter.acquire();
+    public static void test2() throws InterruptedException {
+        RateLimiter rateLimiter = RateLimiter.create(1);
+
+        System.out.println(rateLimiter.acquire(1));
         Thread.sleep(6000);
 
-        long start = System.currentTimeMillis();
-        rateLimiter.acquire(3);
-        System.out.println(System.currentTimeMillis() - start);
+        System.out.println(rateLimiter.acquire(1));
 
-        start = System.currentTimeMillis();
-        rateLimiter.acquire();
-        System.out.println(System.currentTimeMillis() - start);
+        System.out.println(rateLimiter.acquire(1));
+
+        System.out.println(rateLimiter.acquire(1));
+
+        System.out.println(rateLimiter.acquire(1));
+
+    }
 
 
+    /**
+     *
+     * 平滑预热
+     *   平滑突发限流有可能瞬间带来了很大的流量，如果系统扛不住的话，很容易造成系统挂掉
+     */
+
+    public static void testSoomthWarm() throws InterruptedException {
+        RateLimiter limiter = RateLimiter.create(5, 1000, TimeUnit.MILLISECONDS);
+
+        for (int i = 1; i < 5; i++) {
+            System.out.println(limiter.acquire());
+        }
+        Thread.sleep(1000L);
+        for (int i = 1; i < 50; i++) {
+            System.out.println(limiter.acquire());
+        }
 
     }
 

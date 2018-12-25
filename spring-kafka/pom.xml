@@ -30,6 +30,16 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-tools -->
+
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.12</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-streams</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -41,6 +51,17 @@
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
+            <version>1.1.4.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>info.batey.kafka</groupId>
+            <artifactId>kafka-unit</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.kafka</groupId>
@@ -62,12 +83,19 @@
             <version>RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>com.qxwz.locationx</groupId>
-            <artifactId>locationx-dao</artifactId>
-            <version>2.8.0</version>
-            <scope>compile</scope>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-framework</artifactId>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-test -->
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
     </dependencies>
 
     <build>

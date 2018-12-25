@@ -55,7 +55,6 @@ public class LimitInterceptor {
         //default redis key is method name
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         String limitRedisKey = signature.getName();
-//        Limit limit = signature.getMethod().getAnnotation(Limit.class);
         switch (limit.limitType()){
             case IP:
                 limitRedisKey = getClientIp();
@@ -65,7 +64,7 @@ public class LimitInterceptor {
                 break;
 
         }
-        limitRedisKey += limit.moduleName();
+        limitRedisKey += "->" + limit.moduleName();
 
 
         RedisScript<Number> redisScript = new DefaultRedisScript<>(limitLuaScript, Number.class);
