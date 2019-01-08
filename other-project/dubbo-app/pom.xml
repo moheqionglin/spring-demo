@@ -13,6 +13,12 @@
 
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.moheqionglin</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
@@ -24,6 +30,30 @@
         <dependency>
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-framework</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.101tec</groupId>
+            <artifactId>zkclient</artifactId>
+            <version>0.4</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>netty</artifactId>
+                    <groupId>io.netty</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.12</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>info.batey.kafka</groupId>
+            <artifactId>kafka-unit</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 </project>

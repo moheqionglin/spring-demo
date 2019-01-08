@@ -1,0 +1,4 @@
+1. hash函数
+2. rehash， 并发rehash问题
+3. 查找过程
+4. 1000个k-v在hashmap中占多少数据量。  负载因子， key冲突

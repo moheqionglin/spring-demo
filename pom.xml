@@ -326,6 +326,7 @@
         <module>other-project</module>
         <module>self-project</module>
         <module>spring-sharding-jdbc</module>
+        <module>spring-mvc</module>
     </modules>
 
     <repositories>

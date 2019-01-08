@@ -1,0 +1,20 @@
+## linkedhashmap hashmap基础上增加了双链表记录自己节点的殊勋
+https://www.cnblogs.com/xiaoxi/p/6170590.html
+
+## hashmap 1.7之前
+https://blog.csdn.net/pange1991/article/details/82377980
+
+    取模算法是  hashcode & (length-1);
+
+    rehash条件： 当超过阈值，且 当前table[index] ！= null的时候rehash
+      if ((size >= threshold) && (null != table[bucketIndex])) {
+                  resize(2 * table.length);
+                  hash = (null != key) ? hash(key) : 0;
+                  bucketIndex = indexFor(hash, table.length);
+     }
+
+    多线程rehash的时候会出现 死循环。
+
+## hashmap 1.8之前
+小于8的用链表
+>=8 红黑树

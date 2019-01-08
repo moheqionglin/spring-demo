@@ -1,0 +1,42 @@
+1. redis 数据结构
+
+2. redis 持久化数据 方法，优缺点
+
+/usr/local/etc/redis.conf
+
+https://www.cnblogs.com/tdws/p/5754706.html
+
+
+3. Redis哨兵、集群的设计原理和区别
+https://blog.csdn.net/csolo/article/details/53147166
+
+http://youzhixueyuan.com/redis-high-availability.html
+3.1 redis 集群怎么搭建
+
+
+4. redis为什么是单线程
+    > 纯内存操作，没有那么多IO
+    > 单线程不涉及到上下文切换
+    > IO多路复用
+
+5. redis 处理热点数据方法
+
+6. redis分布式怎么做？
+
+7. Redis哨兵、复制、集群的设计原理，以及区别
+ http://youzhixueyuan.com/redis-high-availability.html
+ 解决的问题不一样
+
+  哨兵： 解决主从模式中 故障转移。
+  replicate集群： 解决单点故障，通过多个复制提高整体数据存储和QPS
+
+8. redis有哪些集群模式， 优缺点
+   8.1 主从模式
+   8.2 哨兵
+   8.3 redis cluster
+   8.4 jedis-sharding 客户端sharding模式
+   8.5 中间件做代理（codis）
+   https://blog.csdn.net/pw191410147/article/details/82968168
+
+9. redis 分片和cluster区别
+https://blog.csdn.net/wzy0623/article/details/82706614

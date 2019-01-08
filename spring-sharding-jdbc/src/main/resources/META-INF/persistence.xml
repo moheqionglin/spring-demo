@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+    <!-- persistence-unit for openjpa-->
+    <persistence-unit name="openJpa-unit" transaction-type="RESOURCE_LOCAL">
+        <provider>
+            org.apache.openjpa.persistence.PersistenceProviderImpl
+        </provider>
+        <class>com.moheiqonglin.persistence.jpa.entities.Users</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/datasource1?characterEncoding=UTF-8&amp;useSSL=false"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="123456"/>
+
+            <property name="openjpa.show_sql" value="true"/>
+            <property name="openjpa.ConnectionFactoryProperties"
+                      value="PrettyPrint=true, PrettyPrintLineLength=80, PrintParameters=true"/>
+        </properties>
+    </persistence-unit>
+
+    <!-- persistence-unit for hibernate-->
+    <persistence-unit name="hibernate-jpa-unit">
+        <description>
+            Persistence unit for Hibernate User Guide
+        </description>
+
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class>com.moheiqonglin.persistence.jpa.entities.Users</class>
+
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/datasource1?characterEncoding=UTF-8&amp;useSSL=false"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="123456"/>
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+        </properties>
+
+    </persistence-unit>
+
+    <!--eclipse link jpa-->
+    <persistence-unit name="eclipseLink-jpa-unit" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>com.moheiqonglin.persistence.jpa.entities.Users</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/datasource1?characterEncoding=UTF-8&amp;useSSL=false"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="123456"/>
+
+            <!-- 使用eclipselink自带的连接池，定义池的大小 -->
+            <property name="eclipselink.connection-pool.default.initial" value="1" />
+            <property name="eclipselink.connection-pool.default.min" value="1"/>
+            <property name="eclipselink.connection-pool.default.max" value="1"/>
+
+            <!-- 日志信息 -->
+            <property name="eclipselink.show_sql" value="true"/>
+            <property name="eclipselink.logging.parameters" value="true"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
+            <property name="eclipselink.weaving" value="static"/>
+            <property name="clipselink.orm.throw.exceptions" value="true"/>
+
+            <!-- 表自动生成 -->
+            <property name="eclipselink.ddl-generation" value="create-tables" />
+
+            <!-- 防止每次查询操作的时候都会触发flush操作 -->
+            <property name='eclipselink.persistence-context.flush-mode' value='COMMIT'/>
+        </properties>
+    </persistence-unit>
+</persistence>

@@ -1,0 +1,10 @@
+http://learnmongodbthehardway.com/schema/sharding/
+
+ES         indices(index复数)    Type (could atomic create mapping or manually create a mapping)    document      field
+mongo      database             collections                                                        document      field
+RDBMS      database             table(mush explicit schema when create table)                      row           column
+
+### 为什么 ES不适合做数据库
+    1. 事务，      不支持
+    2. 权限       不支持
+    3. 多堆垛关联   不支持

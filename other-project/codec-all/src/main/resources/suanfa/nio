@@ -1,0 +1,6 @@
+mina VS netty
+
+reactor处理的IO事件的粒度不一样，
+mina前几个版本，处理 io事件根据 session来的， session中的事件可以使accept，read，write。
+而netty把事件粒度细分为了 accept， read， write。 每种类型的事件放到对应的taskqueue中。
+http://ifeve.com/netty-mina-in-depth-2/

@@ -1,0 +1,49 @@
+不一致的情况挺多
+
+    正常缓存和数据库协作是这样的
+           方法一
+            update(){
+               delete_cache();
+               update_db();
+            }
+
+            read(){
+                data = read_cache();
+                if(data != null){
+                    return data;
+                }
+                data = read_db();
+                if(data != null){
+                    save_cache(data);
+                }
+                return data;
+            }
+           方法二
+            fun(){
+                update_db();
+                update_cache();
+            }
+
+            read(){
+                data = read_cache();
+                if(data != null){
+                    return data;
+                }
+                data = read_db();
+                if(data != null){
+                    save_cache(data);
+                }
+                return data;
+            }
+
+     不一致原因：
+       1. 异常情况： cache操作成功，但是db操作失败，或者反过来。
+       2. 同一个服务内 读写进程的导致， 写函数，刚清空缓存，还没有执行db， 读线程会把脏数据load到cache中。
+       3. 一个微服务会同时部署多份，更会引发这个问题。
+
+
+解决方法：
+   1. 分布式锁
+   2. 串行化 ：相同的数据ID 比如 userID相同的， 一定要分到 一个确定的微服务里面， 且相同userID在微服务内部串行执行（方法是，一个userID 用一个 DB connection 发出去。）
+
+https://blog.csdn.net/qq_27384769/article/details/79499373

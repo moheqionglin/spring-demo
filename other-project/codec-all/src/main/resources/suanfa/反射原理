@@ -1,0 +1,18 @@
+Method.invoke底层生成 GeneratedMethodAccessorXXX
+
+https://rednaxelafx.iteye.com/blog/727938
+http://rednaxelafx.iteye.com/blog/548536
+java -classpath ".:./bin:$JAVA_HOME/lib/sa-jdi.jar" -Dsun.jvm.hotspot.tools.jcore.filter=MyFilter sun.jvm.hotspot.tools.jcore.ClassDump 20542
+ javap -verbose sun.reflect.GeneratedMethodAccessor1
+
+https://blog.csdn.net/WildGrasses/article/details/70243342
+
+https://www.cnblogs.com/techspace/p/6931397.html
+
+
+https://www.cnblogs.com/onlywujun/p/3519037.html
+java内敛函数 MethodHandler
+
+
+https://www.sohu.com/a/124124072_494943
+

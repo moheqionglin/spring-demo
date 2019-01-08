@@ -13,3 +13,8 @@ myslq 主从模式
                           2、 打开并行复制， 多个库同时复制。
                           3、 代码上注意，避免立即读取刚写入的数据。
         
+
+
+        mvcc
+        
+        https://liuzhengyang.github.io/2017/04/18/innodb-mvcc/
