@@ -1,3 +1,11 @@
 Kafka怎么保证数据可靠性？
     broker端可靠性：讲了生产者端发送消息到broker持久化，分区和副本机制，
     Consumer端可靠性： 消费者消费消息的at-least-once和at-most-once？怎么实现Exactly-Once？
+
+
+
+## kafka leader和flllower之间关系
+
+    所有读写 都落到leader身上
+
+    https://dzone.com/articles/kafka-topic-architecture-replication-failover-and

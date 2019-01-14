@@ -16,17 +16,6 @@
             <artifactId>easyexcel</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>info.batey.kafka</groupId>
-            <artifactId>kafka-unit</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka-test</artifactId>
-            <version>1.1.4.RELEASE</version>
-        </dependency>
-
     </dependencies>
 
 </project>
