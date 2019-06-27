@@ -1,5 +1,6 @@
 package com.moheqionglin.kafka.producer;
 
+import com.alibaba.fastjson.JSON;
 import com.moheqionglin.kafka.SelfConfig;
 import com.moheqionglin.kafka.Serializer.Address.Address;
 import com.moheqionglin.kafka.Serializer.person.Person;
@@ -32,13 +33,13 @@ public class KafkaProducerMain {
             p.setBirthday(new Date());
             p.setId(Long.valueOf(i));
             p.setAddress(new Address(Long.valueOf(i), "上海", "浦东", "高航"));
-            p.setOthre(20l);
+            p.setOthre(20L);
             kafkaProducer.sendMessage(SelfConfig.personTopic, Long.valueOf(i), p);
         }
 
-//        for(int i = 0; i < 10; i ++){
-//            kafkaProducer.sendAddressMessage("point-topic-dev4", Long.valueOf(i), new Address(Long.valueOf(i), "上海-" + i, "浦东-" + i, "高航-" + i));
-//        }
+        for(int i = 0; i < 10; i ++){
+            kafkaProducer.sendAddressMessage("wanli-test", Long.valueOf(i), new Address(Long.valueOf(i), "上海-" + i, "浦东-" + i, "高航-" + i));
+        }
 
 
 

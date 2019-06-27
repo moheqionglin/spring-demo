@@ -20,6 +20,7 @@
         <module>dubbo-app</module>
         <module>codec-all</module>
         <module>scenarios-application</module>
+        <module>mohe-rpc</module>
     </modules>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>other-project</artifactId>
@@ -57,6 +58,11 @@
             <artifactId>resilience4j-timelimiter</artifactId>
             <version>0.13.1</version>
         </dependency>
+            <dependency>
+                <groupId>org.apache.hbase</groupId>
+                <artifactId>hbase-client</artifactId>
+                <version>1.3.3</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <repositories>

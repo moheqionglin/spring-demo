@@ -22,12 +22,12 @@ public class QuickSort {
     }
 
 
-
+    //先序遍历二叉树
     private static void quickSort(int[] array, int left, int right) {
-
         if(left > right){
             return;
         }
+
         int jizhun = array[left];
         int i = left;
         int j = right;

@@ -14,6 +14,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 @Component
 public class KafkaProducer {
 
@@ -29,7 +33,19 @@ public class KafkaProducer {
         int partition = (int) (person.getId() % 9);
         ProducerRecord<Long, Person> record = new ProducerRecord(topicName, partition, person.getId(), person);
         record.headers().add(new RecordHeader("attachment", "万里-附件".getBytes(Charsets.UTF_8)));
-        kafkaTemplate.send(record);
+        System.out.println("---1---");
+        ListenableFuture<SendResult<Long, Person>> send = kafkaTemplate.send(record);
+        try {
+            send.get(10, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
+        System.out.println(send.isDone());
+        System.out.println("---2---");
     }
 
     public void sendAddressMessage(String topicName, Long key, Address address) {

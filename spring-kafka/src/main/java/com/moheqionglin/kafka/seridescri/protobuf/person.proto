@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option java_package = "com.moheqionglin.kafka.seridescri.protobuf.compile";
+option java_outer_classname = "PersonFactory";
+
+
+message Person{
+     int32 id = 1;
+     string name = 2;
+     int64 age = 3;
+     float lon = 4;
+     bool success = 5;
+
+}

@@ -1,0 +1,32 @@
+{
+   "namespace": "com.moheqionglin.kafka.seridescri.avro",
+   "type": "record",
+   "name": "AvroPerson",
+   "fields": [
+      {
+         "name": "id",
+         "type": ["int","null"],
+         "doc":"id"
+      },
+      {
+         "name": "name",
+         "type": ["string","null"],
+         "doc":"姓名"
+      },
+      {
+         "name": "age",
+         "type": ["long","null"],
+         "doc":"年龄"
+      },
+     {
+        "name": "lon",
+        "type": ["float","null"],
+        "doc":"经度"
+     },
+     {
+         "name": "success",
+         "type": ["boolean","null"],
+         "doc":"成功"
+      }
+   ]
+}

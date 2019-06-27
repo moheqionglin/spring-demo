@@ -89,9 +89,9 @@ public class HeapSort {
             }
         }
 
-        public static int parent(int i){
-            return (i - 1) / 2;
-        }
+//        public static int parent(int i){
+//            return (i - 1) / 2;
+//        }
         public static int leftChild(int i){
             return i * 2 + 1;
         }

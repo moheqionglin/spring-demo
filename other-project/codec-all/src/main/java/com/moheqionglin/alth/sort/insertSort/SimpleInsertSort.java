@@ -32,5 +32,4 @@ public class SimpleInsertSort {
         array[k] = selectValue;
     }
 
-
 }

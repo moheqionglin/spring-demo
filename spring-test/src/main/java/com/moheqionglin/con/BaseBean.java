@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class BaseBean {
 
-    @Value("${locationx.service.rocketmq.address}")
+    @Value("${test.properties}")
     private String mqAddress;
 
     @Value("${abc}")

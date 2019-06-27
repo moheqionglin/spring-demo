@@ -18,6 +18,13 @@ public class SpringLogger {
         log.debug("===DEBUG====");
         log.info("===INFO====");
         log.error("===ERROR====");
+
+        try{
+            int a = 1 / 0;
+        }catch (Throwable e){
+            log.warn("exp:{}", e.getMessage(), e);
+            log.error("exp:{}", e);
+        }
     }
 
 }

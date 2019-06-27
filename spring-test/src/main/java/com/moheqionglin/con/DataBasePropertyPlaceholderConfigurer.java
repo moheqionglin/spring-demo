@@ -12,7 +12,7 @@ public class DataBasePropertyPlaceholderConfigurer extends PropertyPlaceholderCo
     @Override
     public Properties mergeProperties(){
         Properties p = new Properties();
-        p.setProperty("locationx.service.rocketmq.address", "万里");
+        p.setProperty("test.properties", "万里");
 //        p.setProperty("abc", "万里");
         return p;
     }

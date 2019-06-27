@@ -17,7 +17,7 @@ public class Server {
 
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         //设置backlog是3
-        serverSocketChannel.bind(new InetSocketAddress(9983), 3)
+        serverSocketChannel.bind(new InetSocketAddress(9983), 2)
                 .configureBlocking(true);
 
         //这里我们不从 内核态中的backlog队列中 消费待处理的链接。

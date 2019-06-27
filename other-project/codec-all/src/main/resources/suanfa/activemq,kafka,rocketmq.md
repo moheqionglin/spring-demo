@@ -81,9 +81,9 @@ Kafka  https://www.jianshu.com/p/aa274f8fe00f
      https://blog.csdn.net/u013332124/article/details/82793381
      
    Kafka水位
-       [admin@locationxkafkatest-vbj01c-3 lx-tripNotify-topic-test-1]$ pwd
-       /wzdata/kafkaData/lx-tripNotify-topic-test-1
-       [admin@locationxkafkatest-vbj01c-3 lx-tripNotify-topic-test-1]$ ll
+       [admin@]$ pwd
+       /wzdata/kafkaData/topic-1
+       [admin@]$ ll
        total 12
        -rw-rw-r-- 1 admin admin 10485760 Dec 14 12:13 00000000000000000127.index
        -rw-rw-r-- 1 admin admin      973 Dec 21 16:41 00000000000000000127.log
