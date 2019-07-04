@@ -31,7 +31,9 @@ public class KafkaConsumerMain1 {
     public static void main(String[] args) throws InterruptedException {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(KafkaConsumerConfig.class);
 
+    }
 
+    public void stopKafkaConsumer(AnnotationConfigApplicationContext context) throws InterruptedException {
         KafkaListenerEndpointRegistry registry = context.getBean(KafkaListenerEndpointRegistry.class);
 
 
@@ -43,7 +45,5 @@ public class KafkaConsumerMain1 {
         Thread.sleep(20000);
         System.out.println("--> stop");
         listenerContainer.stop();
-
-
     }
 }

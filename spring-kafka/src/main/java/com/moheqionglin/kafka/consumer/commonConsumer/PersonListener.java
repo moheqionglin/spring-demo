@@ -5,8 +5,10 @@ import com.google.common.base.Charsets;
 import com.moheqionglin.kafka.SelfConfig;
 import com.moheqionglin.kafka.Serializer.person.Person;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.utils.Bytes;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.listener.ConsumerSeekAware;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
@@ -14,12 +16,16 @@ import org.springframework.messaging.handler.annotation.Header;
 import javax.annotation.PostConstruct;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class PersonListener {
+public class PersonListener implements ConsumerSeekAware {
+
+    private final ThreadLocal<ConsumerSeekCallback> seekCallBack = new ThreadLocal<>();
+
 
     @PostConstruct
     public void init(){
@@ -104,11 +110,11 @@ public class PersonListener {
             long offset = record.offset();
             int partition = record.partition();
             System.out.println("-->Person消费者, " + Thread.currentThread().getName() + " [id = " + value.getId() + ", topic = " + topic + ", partition = " + partition + ", offset = " + offset + ", offsets = " + offsets + ", att = " + att + "], key = " + key + ", value = " + value);
-//            try {
-//                Thread.sleep(5 * 1000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                Thread.sleep(5 * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
 
         }catch (Exception e){
@@ -125,4 +131,23 @@ public class PersonListener {
         acknowledgment.acknowledge();
     }
 
+    public void seek(String topic, int partition, long offset){
+        this.seekCallBack.get().seek(topic, partition, offset);
+        System.out.println("成功 seek");
+    }
+
+    @Override
+    public void registerSeekCallback(ConsumerSeekCallback consumerSeekCallback) {
+        this.seekCallBack.set(consumerSeekCallback);
+    }
+
+    @Override
+    public void onPartitionsAssigned(Map<TopicPartition, Long> map, ConsumerSeekCallback consumerSeekCallback) {
+
+    }
+
+    @Override
+    public void onIdleContainer(Map<TopicPartition, Long> map, ConsumerSeekCallback consumerSeekCallback) {
+
+    }
 }

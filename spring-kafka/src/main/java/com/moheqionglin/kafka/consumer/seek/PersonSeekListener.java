@@ -65,6 +65,11 @@ public class PersonSeekListener implements ConsumerSeekAware {
 
     }
 
+    public void seek(String topic, int partition, long offset){
+        this.seekCallBack.get().seek(topic, partition, offset);
+        System.out.println("成功 seek");
+    }
+
     @Override
     public void registerSeekCallback(ConsumerSeekCallback consumerSeekCallback) {
         this.seekCallBack.set(consumerSeekCallback);

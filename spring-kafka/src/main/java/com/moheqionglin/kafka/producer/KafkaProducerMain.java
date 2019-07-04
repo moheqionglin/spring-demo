@@ -25,21 +25,26 @@ public class KafkaProducerMain {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(KafkaProducerConfig.class);
 
         KafkaProducer kafkaProducer = (KafkaProducer) context.getBean("kafkaProducer");
-        for(int i = 20 ; i < 30; i ++){
-            Person p = new Person();
-            p.setName("p-"+ i);
-            p.setMalel(false);
-            p.setAge(1);
-            p.setBirthday(new Date());
-            p.setId(Long.valueOf(i));
-            p.setAddress(new Address(Long.valueOf(i), "上海", "浦东", "高航"));
-            p.setOthre(20L);
-            kafkaProducer.sendMessage(SelfConfig.personTopic, Long.valueOf(i), p);
+        for(int j = 0 ; j < 100; j ++){
+
+            for(int i = 0 ; i < 3000; i ++){
+                Person p = new Person();
+                p.setName("p-"+ i);
+                p.setMalel(false);
+                p.setAge(1);
+                p.setBirthday(new Date());
+                p.setId(Long.valueOf(i));
+                p.setAddress(new Address(Long.valueOf(i), "上海", "浦东", "高航"));
+                p.setOthre(20L);
+                kafkaProducer.sendMessage(SelfConfig.personTopic, Long.valueOf(i), p);
+            }
+            Thread.sleep(3000);
         }
 
-        for(int i = 0; i < 10; i ++){
-            kafkaProducer.sendAddressMessage("wanli-test", Long.valueOf(i), new Address(Long.valueOf(i), "上海-" + i, "浦东-" + i, "高航-" + i));
-        }
+
+//        for(int i = 0; i < 10; i ++){
+//            kafkaProducer.sendAddressMessage("wanli-test", Long.valueOf(i), new Address(Long.valueOf(i), "上海-" + i, "浦东-" + i, "高航-" + i));
+//        }
 
 
 
