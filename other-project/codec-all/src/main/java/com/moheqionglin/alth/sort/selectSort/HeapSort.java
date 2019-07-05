@@ -2,6 +2,8 @@ package com.moheqionglin.alth.sort.selectSort;
 
 import com.moheqionglin.alth.Util;
 
+import java.util.Map;
+
 /**
  * @author wanli.zhou
  * @description
@@ -12,6 +14,7 @@ public class HeapSort {
 
 
     public static void main(String[] args) {
+
         int array[] = Util.mockArray(10);
         Util.print(array);
 
@@ -43,11 +46,10 @@ public class HeapSort {
         //从小到大
         public static void heapSort(int [] array){
             buildMaxHeap(array, array.length);
-            swap(array, 0, array.length - 1);
 
-            for(int i = 1; i < array.length -1 ; i ++){
-                adjustmaxHeap(array, 0, array.length - i);
-                swap(array, 0, array.length - i - 1);
+            for(int i = array.length -1; i > 0 ; i --){
+                swap(array, 0, i);
+                adjustmaxHeap(array, 0, i -1);
             }
         }
         /**
@@ -58,6 +60,7 @@ public class HeapSort {
          */
         public static void adjustmaxHeap(int array[], int i , int heapSize){
 
+            //i 的 左孩子 2 * i + 1, 右孩子 2 * i + 2
             int maxIndex = i;
             int leftChildIndex = leftChild(i);
             int rightChildIndex = rightChild(i);
@@ -81,7 +84,7 @@ public class HeapSort {
          * @param array
          * @param heapSize
          *
-         * 构建一个最大堆， 是从第一个非叶子节点开始 -> 0(也就是根节点)（因为第一个飞叶子节点有自己的孩子可以比较）， 递归构建的
+         * 构建一个最大堆， 是从第一个非叶子节点开始 --一直到-> 0(也就是根节点)（因为第一个飞叶子节点有自己的孩子可以比较）， 递归构建的
          */
         public static void buildMaxHeap(int [] array, int heapSize){
             for(int i = (heapSize - 2) / 2; i >= 0; i --){

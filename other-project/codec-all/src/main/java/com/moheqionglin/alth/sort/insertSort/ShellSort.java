@@ -18,16 +18,28 @@ public class ShellSort {
         Util.print(array);
     }
 
+    /**
+     *
+     * gap = 5
+     *      i = 5
+     *           j = 5
+     *      i = 6
+     *          j = 6
+     *
+     * gap = 2
+     *     i =
+     *
+     * */
     public static void sort(int[] arr) {
         //增量gap，并逐步缩小增量
         for (int gap = arr.length / 2; gap > 0; gap /= 2) {
             //从第gap个元素，逐个对其所在组进行直接插入排序操作
             for (int i = gap; i < arr.length; i++) {
-                int j = i;
-                while (j - gap >= 0 && arr[j] < arr[j - gap]) {
+
+                for (int j = i; j - gap >= 0 && arr[j] < arr[j - gap]; j -= gap) {
                     //插入排序采用交换法
                     swap(arr, j, j - gap);
-                    j -= gap;
+
                 }
             }
         }

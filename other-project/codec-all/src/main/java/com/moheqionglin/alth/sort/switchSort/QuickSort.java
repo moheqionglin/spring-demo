@@ -28,6 +28,14 @@ public class QuickSort {
             return;
         }
 
+        int i = partition(array, left, right);
+
+        quickSort(array, left, i - 1);
+        quickSort(array, i +1, right);
+    }
+
+    //一次partition结束以后， 数组的左边都会小于基准， 数组的右边都会大于基准
+    private static int partition(int[] array, int left, int right) {
         int jizhun = array[left];
         int i = left;
         int j = right;
@@ -48,11 +56,8 @@ public class QuickSort {
         //基准数据 归位
         array[left] = array[i];
         array[i] = jizhun;
-
-        quickSort(array, left, i - 1);
-        quickSort(array, i +1, right);
+        return i;
     }
-
 
 
 }
