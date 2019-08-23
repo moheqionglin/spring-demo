@@ -22,7 +22,7 @@
 		<!-- 基本属性 url、user、password currentSchema=CSP&amp; -->
 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/shardingDemo?characterEncoding=UTF-8&amp;useSSL=false" />
 		<property name="username" value="root" />
-		<property name="password" value="wanli123" />
+		<property name="password" value="123456" />
 
 
 		<!-- 配置初始化大小、最小、最大 -->
@@ -82,5 +82,5 @@
 	<!-- 使用annotation定义事务,实际做法就是在类上使用@Transactional注解,这个配置才能开启注解事务支持 -->
 	<tx:annotation-driven transaction-manager="shardingTransactionManager" proxy-target-class="true"/>
 	<context:component-scan base-package="com.moheiqonglin.shard" />
-
+	<context:component-scan base-package="com.moheiqonglin.performentWrite" />
 </beans>

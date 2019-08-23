@@ -328,6 +328,8 @@
         <module>spring-sharding-jdbc</module>
         <module>spring-mvc</module>
         <module>scala-demo</module>
+        <module>spring-transaction</module>
+        <module>spring-elasticsearch</module>
     </modules>
 
     <repositories>

@@ -1,12 +1,13 @@
 package com.moheqionglin.agent;
 
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.CtMethod;
-import javassist.CtNewMethod;
+import javassist.*;
+import javassist.bytecode.CodeAttribute;
+import javassist.bytecode.LocalVariableAttribute;
+import javassist.bytecode.MethodInfo;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
+import java.lang.reflect.Method;
 import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,6 +54,8 @@ public class MyTransformer implements ClassFileTransformer {
 //                    String outputStr = " System.out.println(\"监控信息(执行耗时)：" + className + "." + methodName + " =>  (endTime - startTime) 毫秒\");";
                     // 得到这方法实例
                     CtMethod ctmethod = ctclass.getDeclaredMethod(methodName);
+                    javassistGetInfo(ctmethod);
+                    System.out.println();
                     // 新定义一个方法叫做比如queryUserAge$new
                     String newMethodName = methodName + "$new";
                     // 将原来的方法名字修改
@@ -64,11 +67,12 @@ public class MyTransformer implements ClassFileTransformer {
                     methodBodyStr.append("{");
                     methodBodyStr.append("long startTime = System.currentTimeMillis();");
                     methodBodyStr.append(newMethodName + "($$);");// 调用原有代码，类似于method();($$)表示所有的参数
-                            methodBodyStr.append("long endTime = System.currentTimeMillis();");
+                    methodBodyStr.append("long endTime = System.currentTimeMillis();");
                     methodBodyStr.append(outputStr);
                     methodBodyStr.append("}");
                     newMethod.setBody(methodBodyStr.toString());// 替换新方法
-                    System.out.println(methodBodyStr.toString());
+                    System.out.println(" 方法 => " + methodBodyStr.toString());
+
                     ctclass.addMethod(newMethod); // 增加新方法
                 }
                 return ctclass.toBytecode();
@@ -77,5 +81,36 @@ public class MyTransformer implements ClassFileTransformer {
             }
         }
         return null;
+    }
+
+    private void javassistGetInfo(CtMethod ctm ) throws Exception{
+
+        MethodInfo methodInfo = ctm.getMethodInfo();
+        CodeAttribute codeAttribute = methodInfo.getCodeAttribute();
+        LocalVariableAttribute attribute = (LocalVariableAttribute)codeAttribute.getAttribute(LocalVariableAttribute.tag);
+
+        int pos = Modifier.isStatic(ctm.getModifiers()) ? 0 : 1;
+        for (int i=0;i<ctm.getParameterTypes().length;i++) {
+            System.out.print(ctm.getParameterTypes()[i]+" "+attribute.variableName(i+pos));
+            if (i<ctm.getParameterTypes().length-1) {
+                System.out.print(",");
+            }
+        }
+
+        System.out.print(")");
+
+        CtClass[] exceptionTypes = ctm.getExceptionTypes();
+        if (exceptionTypes.length>0) {
+            System.out.print(" throws ");
+            int j=0;
+            for (CtClass cl : exceptionTypes) {
+                System.out.print(cl.getName());
+                if (j<exceptionTypes.length-1) {
+                    System.out.print(",");
+                }
+                j++;
+            }
+        }
+
     }
 }

@@ -1,0 +1,57 @@
+# zk  https://www.cnblogs.com/sunddenly/p/4138580.html
+CAP：
+   顺序一致性， 牺牲可用性（选主过程中不可用），P满足
+   tickTime=2000 每次心跳时间
+   initLimit=10  如果在 initLimit * tickTime时间内半数以上的follower没有完成同步，那么 leader放弃领导权力。开始选主
+   syncLimit=5   如果 follower在 syncLimit * tickTime时间内没有和leader完成同步，那么follower被踢出去，所有和follower链接的client都切换到其他client上。
+
+  ZAB （ZooKeeper Atomic Broadcast ） 全称为：原子消息广播协议
+
+  ## ZAB协议的 数据一致性
+  过程： 两阶段提交
+  第一阶段： leader 广播（Broadcast） Proposal（操作）
+  第二阶段： 过半的follower ack以后， leader发出commit，标识消息收到。
+  问题：
+    1. 第一阶段OK，第二阶段leader发出commit以后挂了。那么 所有的follower要保存这条proposal。然后进入选主流程。
+    2. 第一阶段就leader生成了proposal但是没有广播出去就挂了。 那么整个集群只有leader有这个消息。当这个节点重启再次加入集群以后。应该丢弃该消息。
+
+
+  ## ZAB协议的选主
+  1. 确保leader已经commit的proposal最终被所有follower保存
+  2. 确保那些只在leader被提出的proposal但是没有commit的被丢弃。
+  目的是，再重新选主的时候，只要保证新选出来的leader有最高的ZKID的proposal，就可以保证新的leader一定有
+  集群中全部提交的天。
+
+  选主流程：
+    1. 集群刚启动选主。 每个节点发送自己的【myid, zxid, epoch选举的轮次】
+        node1 [1, 0]
+        node2 [2, 0]
+        ---- 第二轮
+        node1 [2, 0]
+        node2 [2, 0] 当zxid相同的时候myid大的当leader。所以 node2是leader
+    2. 集群运行了一段时间leader挂了。
+        node1 [1, 122]
+        node2 [1, 121]  那么再来一轮node2会修改自己投票。在最终zxid大的当选leader。避免数据丢失。
+
+
+  ZAB协议简化了2PC事务提交：
+  1、去除中断逻辑移除，follower要么ack，要么抛弃Leader；
+  2、leader不需要所有的Follower都响应成功，只要一个多数派ACK即可。
+
+
+丢弃的事务proposal处理过程：
+
+    ZAB协议中使用ZXID作为事务编号，ZXID为64位数字，低32位为一个递增的计数器，每一个客户端的一个事务请求时Leader产生新的事务后该计数器都会加1，
+    高32位为Leader周期epoch编号，当新选举出一个Leader节点时Leader会取出本地日志中最大事务Proposal的ZXID解析出对应的epoch把该值加1作为新的epoch，将低32位从0开始生成新的ZXID；
+    ZAB使用epoch来区分不同的Leader周期，能有效避免了不同的leader服务器错误的使用相同的ZXID编号提出不同的事务proposal的异常情况，大大简化了提升了数据恢复流程；
+    所以这个崩溃的机器启动时，也无法成为新一轮的Leader，因为当前集群中的机器一定包含了更高的epoch的事务proposal。
+    https://www.cnblogs.com/sunddenly/p/4138580.html
+    http://cailin.iteye.com/blog/2014486/
+    http://www.jasongj.com/zookeeper/fastleaderelection/
+    http://www.cnblogs.com/ASPNET2008/p/6421571.html
+    https://zhuanlan.zhihu.com/p/25594630
+    http://sunxing.cc/2016/06/14/zookeeper-study001/
+    http://www.jasongj.com/zookeeper/fastleaderelection/
+    http://www.jasongj.com/zookeeper/distributedlock/
+
+# PAXOS https://www.jianshu.com/p/ddf0db5d5f52

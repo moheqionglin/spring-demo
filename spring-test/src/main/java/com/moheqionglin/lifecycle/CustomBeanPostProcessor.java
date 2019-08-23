@@ -25,10 +25,10 @@ public class CustomBeanPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessAfterInitialization(Object o, String s) throws BeansException {
         if(s.equalsIgnoreCase("lifecycleBean")){
-            System.out.println(" 4 ==>lifecycleBean[CustomBeanPostProcessor.postProcessAfterInitialization]" + s + "  " + o.getClass() + " " + o);
+            System.out.println(" 4 ==>lifecycleBean[BeanPostProcessor.postProcessAfterInitialization]" + s + "  " + o.getClass() + " " + o);
         }
         if(s.equalsIgnoreCase("LifecycleProtpotypeBean")){
-            System.out.println(" 4 ==>LifecycleProtpotypeBean[CustomBeanPostProcessor.postProcessAfterInitialization]" + s + "  " + o.getClass() + " " + o);
+            System.out.println(" 4 ==>LifecycleProtpotypeBean[BeanPostProcessor.postProcessAfterInitialization]" + s + "  " + o.getClass() + " " + o);
         }
         return o;
     }

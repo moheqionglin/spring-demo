@@ -9,3 +9,13 @@ Kafka怎么保证数据可靠性？
     所有读写 都落到leader身上
 
     https://dzone.com/articles/kafka-topic-architecture-replication-failover-and
+
+CAP
+   C 和 A 天生一对矛盾体。 要想保证强一致性，必定满足不了高可用性。
+   kafka 如何保证A的？
+   https://www.jianshu.com/p/ac8db1819738
+   https://www.jianshu.com/p/ce53c55ceb4d
+
+
+   事务 幂等性
+   https://blog.csdn.net/mlljava1111/article/details/81180351

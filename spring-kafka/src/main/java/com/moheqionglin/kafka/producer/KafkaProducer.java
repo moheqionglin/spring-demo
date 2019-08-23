@@ -30,7 +30,7 @@ public class KafkaProducer {
     public void sendMessage(String topicName, Long key, Person person) {
         System.out.println("==>>>>>>" + kafkaTemplate.partitionsFor(topicName).size());
 
-        int partition = (int) (person.getId() % 9);
+        int partition = (int) (person.getId() % 10);
         ProducerRecord<Long, Person> record = new ProducerRecord(topicName, partition, person.getId(), person);
         record.headers().add(new RecordHeader("attachment", "万里-附件".getBytes(Charsets.UTF_8)));
         System.out.println("---1---");

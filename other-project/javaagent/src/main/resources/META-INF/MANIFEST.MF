@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Premain-Class: com.moheqionglin.agent.MyAgent
+Can-Redefine-Classes: true
+Boot-Class-Path: javassist-3.18.1-GA.jar

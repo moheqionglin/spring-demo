@@ -57,7 +57,7 @@ public class KafkaConsumerConfig {
         ConcurrentKafkaListenerContainerFactory<Long, Person> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         factory.setConcurrency(1);
-        factory.setAutoStartup(false);
+//        factory.setAutoStartup(false);
         //
         factory.getContainerProperties().setAckMode(AbstractMessageListenerContainer.AckMode.MANUAL);
         return factory;

@@ -26,6 +26,11 @@ public class PersonListener implements ConsumerSeekAware {
 
     private final ThreadLocal<ConsumerSeekCallback> seekCallBack = new ThreadLocal<>();
 
+    private class FlagClass{
+        public boolean flag = true;
+
+    }
+    FlagClass flagClass = new FlagClass();
 
     @PostConstruct
     public void init(){
@@ -33,6 +38,16 @@ public class PersonListener implements ConsumerSeekAware {
         scheduledExecutorService.scheduleAtFixedRate(() ->{
             System.out.println("ping pang");
         }, 100, 10, TimeUnit.SECONDS);
+
+        new Thread(()->{
+            try {
+                Thread.sleep(10* 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("状态位改变");
+            flagClass.flag = false;
+        }).start();
     }
 
     private final CountDownLatch latch1 = new CountDownLatch(1);
@@ -109,12 +124,14 @@ public class PersonListener implements ConsumerSeekAware {
             }
             long offset = record.offset();
             int partition = record.partition();
+
             System.out.println("-->Person消费者, " + Thread.currentThread().getName() + " [id = " + value.getId() + ", topic = " + topic + ", partition = " + partition + ", offset = " + offset + ", offsets = " + offsets + ", att = " + att + "], key = " + key + ", value = " + value);
-            try {
-                Thread.sleep(5 * 1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+
+            if(flagClass.flag && record.partition() % 2 == 0){
+                return;
             }
+
+
 
 
         }catch (Exception e){

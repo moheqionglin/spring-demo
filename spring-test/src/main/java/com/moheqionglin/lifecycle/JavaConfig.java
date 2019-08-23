@@ -1,5 +1,6 @@
 package com.moheqionglin.lifecycle;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -14,4 +15,8 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:lifecycle.properties")
 public class JavaConfig {
 
+    @Bean(initMethod = "initMethod", destroyMethod = "destroyMethod")
+    public LifecycleBean lifecycleBean(){
+        return new LifecycleBean();
+    }
 }

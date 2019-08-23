@@ -22,8 +22,8 @@ public class SpringLogger {
         try{
             int a = 1 / 0;
         }catch (Throwable e){
-            log.warn("exp:{}", e.getMessage(), e);
-            log.error("exp:{}", e);
+            log.warn("exp:{}", e);
+//            log.error("exp:{}", e);
         }
     }
 

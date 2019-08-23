@@ -11,8 +11,8 @@ import javax.annotation.PostConstruct;
  * @description
  * @time 03/01/2019 3:45 PM
  */
-@Component
 public class LifecycleBean implements InitializingBean {
+
 
     @Value("${lifecycle.name}")
     private String name;
@@ -26,6 +26,12 @@ public class LifecycleBean implements InitializingBean {
     public LifecycleBean(){
         System.out.println("0  ====> LifecycleBean 构造函数");
     }
+
+    public void initMethod(){
+        System.out.println("LifecycleBean.initMethod ");
+    }
+
+
     @PostConstruct
     public void init(){
         System.out.println("2 =====> LifecycleBean[@PostConstruct] PostConstruct");
@@ -72,5 +78,9 @@ public class LifecycleBean implements InitializingBean {
 
     public void setOther(String other) {
         this.other = other;
+    }
+
+    private void destroyMethod() {
+        System.out.println("LifecycleBean.destroyMethod ");
     }
 }

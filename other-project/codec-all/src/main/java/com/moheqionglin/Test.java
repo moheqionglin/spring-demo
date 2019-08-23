@@ -17,7 +17,6 @@ public class Test {
         test.testArrayCopyBytes();
         System.out.println(System.currentTimeMillis() - start);
 
-
     }
 
     public void testHardCopyBytes(){

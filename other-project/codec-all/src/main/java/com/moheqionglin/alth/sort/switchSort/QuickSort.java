@@ -13,8 +13,8 @@ import java.util.Random;
 public class QuickSort {
 
     public static void main(String[] args) {
-        int[] array = Util.mockArray(10);
-
+//        int[] array = Util.mockArray(10);
+        int[] array = new int[]{8, 9, 1, 7, 2, 3, 5, 4, 6, 0};
         Util.print(array);
         quickSort(array, 0, array.length -1 );
         Util.print(array);
@@ -23,8 +23,8 @@ public class QuickSort {
 
 
     //先序遍历二叉树
-    private static void quickSort(int[] array, int left, int right) {
-        if(left > right){
+    public static void quickSort(int[] array, int left, int right) {
+        if(left >= right){
             return;
         }
 

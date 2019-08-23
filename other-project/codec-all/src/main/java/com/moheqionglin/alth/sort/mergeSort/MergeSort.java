@@ -12,7 +12,7 @@ import java.util.Arrays;
  *
  * 归并类排序，
  *              [8 4 5 7 1 3 6 2]
- * 分          [8 4]  5 7]     [1 3]  [6 2]
+ * 分          [8 4  5 7]     [1 3 6 2]
  *           [8 4]   [5 7]    [1 3]   [6 2]
  *       [8]   [4]   [5]   [7]    [1]   [3]   [6]  2]
  *    ------------------------------------------------
@@ -26,7 +26,8 @@ import java.util.Arrays;
 public class MergeSort {
 
     public static void main(String[] args) {
-        int[] array = Util.mockArray(10);
+//        int[] array = Util.mockArray(10);
+        int[] array = new int[]{8, 9, 1, 7, 2, 3, 5, 4, 6, 0};
         Util.print(array);
 
         System.out.println();
@@ -53,14 +54,10 @@ public class MergeSort {
 
     /**
      *
-     * @param array
-     * @param start
-     * @param mid
-     * @param end
+     *  问题变成了： array[ start, mid]   array[mid + 1, end]两个有序数组，
+     *  求： 生成一个新有序数组。
      *
-     *  array[ start, mid]   array[mid + 1, end]
-     *   宏观上 数组1 < 数组2
-     *   微观调整，  主键取数组2 和数组1 比较
+     *
      *
      */
     private static void zhi(int[] array, int start, int mid, int end) {
@@ -71,13 +68,12 @@ public class MergeSort {
         for(; i<= mid && j <= end; ){
             if(array[i] < array[j]){
                 tmp[k] = array[i];
-                k++;
                 i++;
             }else{
                 tmp[k] = array[j];
-                k ++;
                 j++;
             }
+            k++;
         }
         for(; i <= mid; i++){
             tmp[k] = array[i];
