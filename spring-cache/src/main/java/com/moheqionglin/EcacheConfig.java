@@ -19,16 +19,16 @@ import org.springframework.core.io.ClassPathResource;
 })
 public class EcacheConfig {
 
-    @Bean
-    public CacheManager cacheManager() {
-        return new EhCacheCacheManager(ehCacheCacheManager().getObject());
-    }
-
-    @Bean
-    public EhCacheManagerFactoryBean ehCacheCacheManager() {
-        EhCacheManagerFactoryBean cmfb = new EhCacheManagerFactoryBean();
-        cmfb.setConfigLocation(new ClassPathResource("ehcache.xml"));
-        cmfb.setShared(true);
-        return cmfb;
-    }
+//    @Bean
+//    public CacheManager cacheManager() {
+//        return new EhCacheCacheManager(ehCacheCacheManager().getObject());
+//    }
+//
+//    @Bean
+//    public EhCacheManagerFactoryBean ehCacheCacheManager() {
+//        EhCacheManagerFactoryBean cmfb = new EhCacheManagerFactoryBean();
+//        cmfb.setConfigLocation(new ClassPathResource("ehcache.xml"));
+//        cmfb.setShared(true);
+//        return cmfb;
+//    }
 }

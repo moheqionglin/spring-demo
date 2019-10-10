@@ -1,7 +1,9 @@
 package com.moheqionglin.springjetty.controller;
 
 import com.moheqionglin.springjetty.message.User;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -12,8 +14,9 @@ public class HelloController {
         return "Hello World! Welcome to visit waylau.com!";
     }
 
-    @RequestMapping("/hello/way")
-    public User helloWay() {
+    @RequestMapping(value = "/hello/way/{time}", method = RequestMethod.GET)
+    public User helloWay(@PathVariable("time") long time) throws InterruptedException {
+        Thread.sleep(time);
         return new User("Way Lau", 30);
     }
 }

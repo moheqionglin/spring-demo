@@ -1,5 +1,7 @@
 package com.moheqionglin;
 
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -11,19 +13,16 @@ public class Te {
      static ReentrantLock lock = new ReentrantLock();
 
     public static void main(String[] args) {
-        Double a = new Double(2.3);
-        System.out.println(a);
-
+        SortedMap<Integer, String> sortedMap = new TreeMap();
+        sortedMap.put(1, "v1");
+        sortedMap.put(2, "v1");
+        sortedMap.put(3, "v1");
+        sortedMap.put(4, "v1");
+        sortedMap.put(5, "v1");
+        sortedMap.put(6, "v1");
+        System.out.println(sortedMap.headMap(3));
     }
 
-    public void flush()  {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println(Thread.currentThread().getId());
-    }
 
 
 }

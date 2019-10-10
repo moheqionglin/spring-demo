@@ -32,16 +32,16 @@ public class EsConfig {
     public RestHighLevelClient client(){
         RestHighLevelClient client=new RestHighLevelClient(
                 RestClient.builder(
-                        new HttpHost("192.168.0.1",9200,"http"),
-                        new HttpHost("192.168.0.2",9200,"http"),
-                        new HttpHost("192.168.0.3",9200,"http")
+                        new HttpHost("172.16.217.68",9200,"http"),
+                        new HttpHost("172.16.217.51",9200,"http"),
+                        new HttpHost("172.16.217.67",9200,"http")
                 )
         );
         return client;
     }
 
 
-    private final String kafkaBootstrapServer = "192.168.0.4:9092,192.168.0.5:9092,192.168.0.5:9092";
+    private final String kafkaBootstrapServer = "172.16.217.68:9092,172.16.217.51:9092,172.16.217.67:9092";
     @Bean
     public DefaultKafkaConsumerFactory<Long, JSONObject> consumerFactory() {
         Map<String, Object> configProps = new HashMap<>();

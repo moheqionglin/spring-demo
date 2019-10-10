@@ -12,7 +12,7 @@ public class Main {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(JavaConfig.class);
         System.out.println("\n\n\n");
 
-        //不管调用没有默认都是性
+//        //不管调用没有默认都是性
         LifecycleBean lifecycleBean = (LifecycleBean) applicationContext.getBean("lifecycleBean");
         lifecycleBean.print();
 
@@ -20,13 +20,13 @@ public class Main {
 
         LifecycleBean lifecycleBean1 = (LifecycleBean) applicationContext.getBean("lifecycleBean");
         lifecycleBean1.print();
+//
+//        System.out.println("\n\n\n");
+//
+//        LifecycleProtpotypeBean lifecycleProtpotypeBean = (LifecycleProtpotypeBean) applicationContext.getBean("lifecycleProtpotypeBean");
+//        lifecycleProtpotypeBean.print();
 
-        System.out.println("\n\n\n");
-
-        LifecycleProtpotypeBean lifecycleProtpotypeBean = (LifecycleProtpotypeBean) applicationContext.getBean("lifecycleProtpotypeBean");
-        lifecycleProtpotypeBean.print();
-
-        applicationContext.close();
+//        applicationContext.close();
 
         Thread.sleep(10000);
     }

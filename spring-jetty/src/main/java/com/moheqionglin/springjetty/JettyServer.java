@@ -23,6 +23,8 @@ public class JettyServer {
     private ServletContextHandler servletContextHandler(WebApplicationContext context) {
         ServletContextHandler handler = new ServletContextHandler();
         handler.setContextPath(CONTEXT_PATH);
+        handler.setInitParameter("com.sun.jersey.spi.container.ContainerResponseFilters",
+                "org.vimtang.ws.rs.server.jersey.filter.CORSFilter");
         handler.addServlet(new ServletHolder(new DispatcherServlet(context)), MAPPING_URL);
         handler.addEventListener(new ContextLoaderListener(context));
         return handler;

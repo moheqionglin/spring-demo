@@ -32,11 +32,12 @@ public class ConsumerForES2 {
    private EsService esService;
 
 
-   @KafkaListener(id = "consumer-es-2", topics = "topic-dev", containerFactory = "kafkaListenerContainerFactory")
+   @KafkaListener(id = "consumer-es-2", topics = "event-topic-dev", containerFactory = "kafkaListenerContainerFactory")
    public void listen(ConsumerRecord<Long, JSONObject> record, Acknowledgment acknowledgment) {
        JSONObject data = record.value();
        data.put("id", atomicLong.addAndGet(2));
        data.put("data-type", "event");
+
        esService.batchCreateData2( data);
        acknowledgment.acknowledge();
 

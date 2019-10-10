@@ -32,7 +32,7 @@ public class EsService {
             List old = data1;
             data1 = new ArrayList<>();
             try {
-                esCommonDao.batchInsert("point", old);
+                esCommonDao.batchInsert("caster-point", old);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -45,7 +45,7 @@ public class EsService {
             List old = data2;
             data2 = new ArrayList<>();
             try {
-                esCommonDao.batchInsert("point", old);
+                esCommonDao.batchInsert("caster-point", old);
             } catch (IOException e) {
                 e.printStackTrace();
             }

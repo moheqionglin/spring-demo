@@ -4,7 +4,7 @@
          monitoring="autodetect"
          dynamicConfig="true">
 
-    <diskStore path="~/Desktop/" />
+    <diskStore path="/Users/wanli.zhou/ecache/" />
 
     <!--<cache name="book"-->
            <!--maxElementsInMemory="1"-->
@@ -21,7 +21,7 @@
     <!--</cache>-->
 
     <defaultCache
-            maxElementsInMemory="10000"
+            maxElementsInMemory="10"
             maxElementsOnDisk="0"
             eternal="true"
             overflowToDisk="true"
@@ -32,24 +32,17 @@
             diskExpiryThreadIntervalSeconds="120"
             memoryStoreEvictionPolicy="LFU"
     />
-    <cache name="book"
-           maxElementsInMemory="1"
+
+    <cache name="entityCache"
+           eternal="true"
+           overflowToDisk="true"
+           maxElementsInMemory="10"
+           diskPersistent="true"
            maxElementsOnDisk="0"
            timeToIdleSeconds="120"
-           timeToLiveSeconds="120"
+           timeToLiveSeconds="1200"
            diskSpoolBufferSizeMB="50"
            diskExpiryThreadIntervalSeconds="120"
     />
-
-    <cache name="animal"
-           maxEntriesLocalHeap="10000"
-           maxEntriesLocalDisk="1000"
-           eternal="false"
-           diskSpoolBufferSizeMB="20"
-           timeToIdleSeconds="300" timeToLiveSeconds="600"
-           memoryStoreEvictionPolicy="LFU"
-           transactionalMode="off">
-        <persistence strategy="localTempSwap" />
-    </cache>
 
 </ehcache>

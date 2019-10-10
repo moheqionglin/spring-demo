@@ -31,7 +31,7 @@ public class ConsumerForES {
     AtomicLong atomicLong = new AtomicLong(1);
 
 
-   @KafkaListener(id = "consumer-es-1", topics = "topic-dev1", containerFactory = "kafkaListenerContainerFactory")
+   @KafkaListener(id = "consumer-es-1", topics = "point-topic-dev1", containerFactory = "kafkaListenerContainerFactory")
    public void listen(ConsumerRecord<Long, JSONObject> record, Acknowledgment acknowledgment) {
        JSONObject data = record.value();
        data.put("id", atomicLong.addAndGet(2));
