@@ -8,10 +8,11 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-//@Component
+@Component
 public class Animal{
     @Value("${application.name}")
     private String name;
+    @Value("${xyadf.asdf:\\:asdf}")
     private String type;
 
 

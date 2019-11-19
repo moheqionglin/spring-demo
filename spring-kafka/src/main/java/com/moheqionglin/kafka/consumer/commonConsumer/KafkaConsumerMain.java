@@ -36,13 +36,13 @@ public class KafkaConsumerMain {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(KafkaConsumerConfig.class);
 
 
-//        KafkaListenerEndpointRegistry registry = context.getBean(KafkaListenerEndpointRegistry.class);
+        KafkaListenerEndpointRegistry registry = context.getBean(KafkaListenerEndpointRegistry.class);
 
 
 //        Thread.sleep(10000);
-//        MessageListenerContainer listenerContainer = registry.getListenerContainer("wanli-local-point-cg-22");
-//        listenerContainer.start();
-
+        MessageListenerContainer listenerContainer = registry.getListenerContainer("wanli-local-point-cg-22");
+        listenerContainer.start();
+        listenerContainer.stop();
 
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class TestDao {
     @Value("${application.name}")
     private String name;
+    @Value("${aslfjalfd.asdf::asdf}")
     private String sex;
 
     public String getName() {

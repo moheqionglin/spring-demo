@@ -54,7 +54,7 @@ public class KafkaConsumerWithoutSpring {
 
     private DefaultKafkaConsumerFactory<Long, String> createConsumerFactory(Map<String, String> params) {
         Map<String, Object> configProps = new HashMap<>();
-        configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "172.16.217.68:9092,172.16.217.51:9092,172.16.217.67:9092");
+        configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092,127.0.0.2:9092,127.0.0.3:9092");
         configProps.put(ConsumerConfig.GROUP_ID_CONFIG, "group-wanli");
         configProps.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
         configProps.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");

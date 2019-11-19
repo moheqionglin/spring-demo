@@ -14,7 +14,7 @@ public class DynamicBean {
     private String var;
 
     public void print(){
-        System.out.println("var" + var + " -->Test " + testDao.getName());
+        System.out.println("var" + var + " -->Test " + testDao.getName() + ", " + testDao.getSex());
     }
 
 
