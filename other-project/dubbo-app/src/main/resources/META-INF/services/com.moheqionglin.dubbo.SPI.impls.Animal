@@ -1,0 +1,3 @@
+com.moheqionglin.dubbo.SPI.impls.Bird
+com.moheqionglin.dubbo.SPI.impls.Chicken
+com.moheqionglin.dubbo.SPI.impls.Dog

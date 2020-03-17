@@ -10,7 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:application.properties")
 public class ExtConfig {
 
-    @Bean(initMethod = "initMethod", destroyMethod = "destroyMethod")
+//    @Bean(initMethod = "initMethod", destroyMethod = "destroyMethod")
     public Animal animal(){
         return new Animal("狗", "哺乳类");
     }

@@ -12,14 +12,22 @@ package com.moheqionglin.aqs;
  */
 public class EscapeAnalysis{
     public void alloc() {
-        byte[] b = new byte[2];
-        b[0] = 1;
+        byte[] b = new byte[1024 * 1024];
+        for(int i = 0 ; i < 1024 * 1024; i ++){
+            b[i] = 0;
+        }
     }
     public void batchCreate(){
         long b = System.currentTimeMillis();
         for (int i = 0; i < 100000000; i++) {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             alloc();
         }
+
         long e = System.currentTimeMillis();
         System.out.println(e - b);
     }

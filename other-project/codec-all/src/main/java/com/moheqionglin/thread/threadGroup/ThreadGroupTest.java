@@ -17,6 +17,7 @@ public class ThreadGroupTest {
                 e.printStackTrace();
             }
         };
+
         ThreadGroup userGroup = new ThreadGroup("user");
         userGroup.setMaxPriority(Thread.MIN_PRIORITY);
         Thread userTask1 = new Thread(userGroup, runnable, "user-task1");

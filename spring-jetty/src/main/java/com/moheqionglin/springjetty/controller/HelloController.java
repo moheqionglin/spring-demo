@@ -1,6 +1,5 @@
 package com.moheqionglin.springjetty.controller;
 
-import com.moheqionglin.springjetty.message.User;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

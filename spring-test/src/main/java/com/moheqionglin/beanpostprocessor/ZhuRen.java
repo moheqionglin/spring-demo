@@ -3,6 +3,8 @@ package com.moheqionglin.beanpostprocessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 /**
  * @author wanli.zhou
  * @description
@@ -10,12 +12,22 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ZhuRen {
+
+    @Autowired
     private Animal animal;
 
     public String name;
 
+    @Autowired
+    private ZhuRen2 zhuren2;
+
     public ZhuRen() {
-        System.out.println("ZhuRen 构造器");
+        System.out.println("ZhuRen 构造器 " + animal.getName() + ", " + zhuren2.getZhuren().getName());
+    }
+
+    @PostConstruct
+    public void init(){
+        System.out.println("zhuren post construct " + zhuren2.getZhuren().getName() + ", " + this.getAnimal().getName());
     }
 
     @Override

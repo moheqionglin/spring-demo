@@ -18,6 +18,7 @@ import java.io.InputStream;
  *
  * 先 二级缓存->在一级缓存->数据库
  */
+
 public class FirstLevelCache {
     public static void main(String[] args) throws IOException {
         String resource = "mybits-conf.xml";

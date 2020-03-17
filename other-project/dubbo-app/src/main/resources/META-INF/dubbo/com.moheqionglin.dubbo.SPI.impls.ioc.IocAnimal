@@ -1,0 +1,2 @@
+iocBird=com.moheqionglin.dubbo.SPI.impls.ioc.IocBird
+iocDog=com.moheqionglin.dubbo.SPI.impls.ioc.IocDog

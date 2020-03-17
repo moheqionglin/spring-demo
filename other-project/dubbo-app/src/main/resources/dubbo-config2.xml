@@ -9,9 +9,9 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="customRpc.api"/>
-    <context:component-scan base-package="customRpc.springdubbo"/>
+    <context:component-scan base-package="com.moheqionglin.dubbo.service"/>
+    <context:component-scan base-package="com.moheqionglin.dubbo.springxmlExportService"/>
 
     <!-- 声明需要暴露的服务接口 -->
-    <dubbo:service interface="customRpc.api.Calculator" ref="calculatorImpl" group="group-1"/>
+    <dubbo:service interface="com.moheqionglin.dubbo.service.Calculator" ref="calculatorImpl" group="group-1"/>
 </beans>

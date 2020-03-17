@@ -31,7 +31,7 @@ public class CustomAQSLock {
         }
     }
 
-    public boolean acquire(){
+    public boolean tryAcquire(){
         Thread thread = Thread.currentThread();
         int s = getState();
         if(s == 0){
@@ -46,7 +46,7 @@ public class CustomAQSLock {
 
     public void lock(){
         Thread current = Thread.currentThread();
-        if(acquire()){
+        if(tryAcquire()){
             return;
         }
 
@@ -56,13 +56,14 @@ public class CustomAQSLock {
         //2. 为什么不用Object.await ? 而是用LockSupport.park(current) ？ 因为想精确唤醒明确的队列中的某个线程。而notify是随机唤醒的。
         for(;;){
             //公平锁的实现方式，所以要排队拿锁
-            if(current == waiter.peek() && acquire()){
+            if(current == waiter.peek() && tryAcquire()){
                 waiter.poll();
                 return;
             }
             LockSupport.park(current);
         }
     }
+
 
     public void unlock(){
         Thread current = Thread.currentThread();

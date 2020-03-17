@@ -50,7 +50,7 @@ public class ProducerAndConsumer {
         @Override
         public void run() {
             lock.lock();
-            if(resources.isEmpty()){
+            while (resources.isEmpty()){
                 try {
                     consumerCon.await();
                 } catch (InterruptedException e) {
@@ -82,7 +82,7 @@ public class ProducerAndConsumer {
         public void run() {
             lock.lock();
 
-            if(resources.size() >= 2){
+            while (resources.size() >= 2){
                 try {
                     producerCon.await();
                 } catch (InterruptedException e) {

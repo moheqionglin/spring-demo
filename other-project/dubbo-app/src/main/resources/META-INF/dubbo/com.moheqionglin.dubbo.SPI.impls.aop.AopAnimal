@@ -1,0 +1,5 @@
+aopBird=com.moheqionglin.dubbo.SPI.impls.aop.AopBird
+aopChicken=com.moheqionglin.dubbo.SPI.impls.aop.AopChicken
+aopDog=com.moheqionglin.dubbo.SPI.impls.aop.AopDog
+com.moheqionglin.dubbo.SPI.impls.aop.AopWrapperAnimal
+com.moheqionglin.dubbo.SPI.impls.aop.AopWrapperAnimal2

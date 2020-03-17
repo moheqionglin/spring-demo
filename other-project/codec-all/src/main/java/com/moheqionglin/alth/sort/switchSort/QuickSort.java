@@ -54,8 +54,7 @@ public class QuickSort {
            }
         }
         //基准数据 归位
-        array[left] = array[i];
-        array[i] = jizhun;
+        Util.swap(array, left, i);
         return i;
     }
 

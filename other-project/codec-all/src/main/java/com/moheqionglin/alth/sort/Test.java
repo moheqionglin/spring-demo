@@ -1,7 +1,6 @@
 package com.moheqionglin.alth.sort;
 
 import com.moheqionglin.alth.Util;
-import com.sun.org.apache.xerces.internal.impl.io.UCSReader;
 
 /**
  * @author wanli.zhou
@@ -10,13 +9,7 @@ import com.sun.org.apache.xerces.internal.impl.io.UCSReader;
  */
 public class Test {
     public static void main(String[] args) {
-
-        int[] array = new int[]{8, 9, 1, 7, 2, 3, 5, 4, 6, 0};
-        Util.print(array);
-        Util.print(array);
-
     }
-
 
 
 }

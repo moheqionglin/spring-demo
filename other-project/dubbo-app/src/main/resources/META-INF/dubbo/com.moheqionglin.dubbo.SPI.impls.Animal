@@ -1,0 +1,3 @@
+bird=com.moheqionglin.dubbo.SPI.impls.Bird
+chicken=com.moheqionglin.dubbo.SPI.impls.Chicken
+dog=com.moheqionglin.dubbo.SPI.impls.Dog

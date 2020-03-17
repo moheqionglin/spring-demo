@@ -11,5 +11,17 @@
 
     <artifactId>spring-mvc</artifactId>
 
+    <dependencies>
+
+        <!-- only tomcat start-->
+        <!-- https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core -->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <version>8.5.49</version>
+        </dependency>
+
+        <!-- only tomcat end-->
+    </dependencies>
 
 </project>

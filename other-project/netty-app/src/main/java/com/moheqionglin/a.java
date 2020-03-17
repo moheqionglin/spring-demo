@@ -15,6 +15,9 @@ import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
  */
 public class a {
     public static void main(String[] args) {
+
+
+
         final Object maybeUnsafe = AccessController.doPrivileged(new PrivilegedAction<Object>() {
             @Override
             public Object run() {
