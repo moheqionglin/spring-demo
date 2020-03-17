@@ -1,4 +1,4 @@
-package com.moheqionglin.remotecontroller;
+package com.moheqionglin.remotecontroll;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

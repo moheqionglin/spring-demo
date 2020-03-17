@@ -1,4 +1,4 @@
-package com.moheqionglin.remotecontroller;
+package com.moheqionglin.remotecontroll;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -7,10 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.util.*;
-import java.util.concurrent.BlockingQueue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class CommandDispatcherTelnetHandler extends ChannelInboundHandlerAdapter {

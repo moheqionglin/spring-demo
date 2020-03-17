@@ -1,9 +1,9 @@
-package com.moheqionglin.remotecontroller.test;
+package com.moheqionglin.remotecontroll.test;
 
-import com.moheqionglin.remotecontroller.Command;
-import com.moheqionglin.remotecontroller.CommandHandler;
-import com.moheqionglin.remotecontroller.CommandRequest;
-import com.moheqionglin.remotecontroller.CommandResponse;
+import com.moheqionglin.remotecontroll.Command;
+import com.moheqionglin.remotecontroll.CommandHandler;
+import com.moheqionglin.remotecontroll.CommandRequest;
+import com.moheqionglin.remotecontroll.CommandResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.moheqionglin.remotecontroller.test;
+package com.moheqionglin.remotecontroll.test;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

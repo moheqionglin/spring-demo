@@ -1,4 +1,4 @@
-package com.moheqionglin.remotecontroller;
+package com.moheqionglin.remotecontroll;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

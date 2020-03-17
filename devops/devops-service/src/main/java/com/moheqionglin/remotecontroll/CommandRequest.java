@@ -1,4 +1,4 @@
-package com.moheqionglin.remotecontroller;
+package com.moheqionglin.remotecontroll;
 
 /**
  * @ClassName : CommandRequest

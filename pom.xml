@@ -363,6 +363,7 @@
         <module>spring-transaction</module>
         <module>spring-elasticsearch</module>
         <module>hbase-geomesa</module>
+        <module>devops</module>
     </modules>
 
     <repositories>
