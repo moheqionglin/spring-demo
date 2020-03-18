@@ -12,11 +12,11 @@ import java.util.Arrays;
  * @time 12/12/2018 10:27 AM
  */
 @Configuration
-//@PropertySources({
-//        @PropertySource("classpath:propertiesResourceAndEnvironment.properties"),
-//        @PropertySource("classpath:propertiesResourceAndEnvironment-dev.properties"),
-//        @PropertySource("classpath:propertiesResourceAndEnvironment-prod.properties")
-//})
+@PropertySources({
+        @PropertySource("classpath:propertiesResourceAndEnvironment.properties"),
+        @PropertySource("classpath:propertiesResourceAndEnvironment-dev.properties"),
+        @PropertySource("classpath:propertiesResourceAndEnvironment-prod.properties")
+})
 public class JavaConfig {
 
 
@@ -26,6 +26,9 @@ public class JavaConfig {
     @Value("${config.value}")
     private String configValue;
 
+    @Value("${config.value1}")
+    private String configValue1;
+
 
     @Profile("dev")
     @Bean(name = "simpleBean")
@@ -34,7 +37,7 @@ public class JavaConfig {
         System.out.println(Arrays.asList(environment.getActiveProfiles()));
         System.out.println(Arrays.asList(environment.getDefaultProfiles()));
         System.out.println(environment.getProperty("config.value"));
-        return new SimpleBean("dev", configValue);
+        return new SimpleBean("dev", configValue, configValue1);
     }
 
     @Profile("default")
@@ -43,7 +46,7 @@ public class JavaConfig {
         System.out.println(Arrays.asList(environment.getActiveProfiles()));
         System.out.println(Arrays.asList(environment.getDefaultProfiles()));
         System.out.println(environment.getProperty("config.value"));
-        return new SimpleBean("default", configValue);
+        return new SimpleBean("default", configValue, configValue1);
     }
 
     @Profile("prod")
@@ -52,7 +55,7 @@ public class JavaConfig {
         System.out.println(Arrays.asList(environment.getActiveProfiles()));
         System.out.println(Arrays.asList(environment.getDefaultProfiles()));
         System.out.println(environment.getProperty("config.value"));
-        return new SimpleBean("prod", configValue);
+        return new SimpleBean("prod", configValue, configValue1);
     }
 
 

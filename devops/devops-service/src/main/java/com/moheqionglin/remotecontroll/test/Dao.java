@@ -1,5 +1,6 @@
 package com.moheqionglin.remotecontroll.test;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,7 +12,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class Dao {
 
-    private String database = "default db";
+    @Value("${devops.conf:default db}")
+    private String database;
 
     public void doBiz() {
         System.out.println("dao do biz <" + database + ">");

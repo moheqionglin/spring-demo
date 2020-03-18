@@ -9,10 +9,12 @@ package com.moheqionglin.propertiesResourceAndEnvironment.configCenterProperties
 public class SimpleBean {
     private String env;
     private String configValue;
+    private String configValue1;
 
-    public SimpleBean(String env, String configValue) {
+    public SimpleBean(String env, String configValue, String configValue1) {
         this.env = env;
         this.configValue = configValue;
+        this.configValue1 = configValue1;
     }
 
     public String getEnv() {
@@ -31,11 +33,20 @@ public class SimpleBean {
         this.configValue = configValue;
     }
 
+    public String getConfigValue1() {
+        return configValue1;
+    }
+
+    public void setConfigValue1(String configValue1) {
+        this.configValue1 = configValue1;
+    }
+
     @Override
     public String toString() {
         return "SimpleBean{" +
                 "env='" + env + '\'' +
                 ", configValue='" + configValue + '\'' +
+                ", configValue1='" + configValue1 + '\'' +
                 '}';
     }
 }

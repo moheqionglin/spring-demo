@@ -12,11 +12,11 @@ import java.util.Arrays;
  * @time 12/12/2018 10:27 AM
  */
 @Configuration
-//@PropertySources({
-//        @PropertySource("classpath:propertiesResourceAndEnvironment.properties"),
-//        @PropertySource("classpath:propertiesResourceAndEnvironment-dev.properties"),
-//        @PropertySource("classpath:propertiesResourceAndEnvironment-prod.properties")
-//})
+@PropertySources({
+        @PropertySource("classpath:propertiesResourceAndEnvironment.properties"),
+        @PropertySource("classpath:propertiesResourceAndEnvironment-dev.properties"),
+        @PropertySource("classpath:propertiesResourceAndEnvironment-prod.properties")
+})
 public class JavaConfig {
 
 

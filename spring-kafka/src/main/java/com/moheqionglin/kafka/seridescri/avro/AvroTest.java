@@ -1,6 +1,5 @@
 package com.moheqionglin.kafka.seridescri.avro;
 
-import com.moheqionglin.kafka.kafkaunit.Test;
 import com.twitter.bijection.Injection;
 import com.twitter.bijection.avro.GenericAvroCodecs;
 import org.apache.avro.Schema;
