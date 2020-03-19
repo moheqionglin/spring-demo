@@ -23,13 +23,13 @@ public class GeomesaSearch {
     public static void main(String[] args) throws IOException, CQLException {
         String CQL = "" +
 //                "bbox(point_wz,121.497553006667000,31.341626383333300,121.497553060000000,31.341626883333300) AND" +
-//                "  bizid = 1 AND " +
-                "biztime DURING 2019-11-14T15:03:07.000Z/2019-11-14T15:09:09.000Z";
+                "  bizid = 1 AND " +
+                "biztime DURING 2019-11-13T15:03:07.000Z/2019-11-15T15:09:09.000Z";
 
         GeomesaSearch geomesaSearch = new GeomesaSearch();
-        DataStore dataStore = geomesaSearch.getDataStore(GeomesaInit.ZK, GeomesaInit.CATALOG);
+        DataStore dataStore = geomesaSearch.getDataStore(GeomesaDDL.ZK, GeomesaDDL.CATALOG);
 
-        geomesaSearch.query(dataStore,GeomesaInit.getSimpleFeatureTypeName(),CQL);
+        geomesaSearch.query(dataStore, "lbs",CQL);
     }
 
 

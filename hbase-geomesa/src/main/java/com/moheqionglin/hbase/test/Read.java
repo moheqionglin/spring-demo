@@ -1,5 +1,7 @@
-package com.moheqionglin.hbase;
+package com.moheqionglin.hbase.test;
 
+import com.moheqionglin.hbase.HbaseConnectionUtil;
+import com.moheqionglin.hbase.HbaseTemplate;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;

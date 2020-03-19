@@ -11,6 +11,7 @@ public class BlockComsumer {
     public static void main(String[] args) throws JMSException {
 
         BlockComsumer consumer = new BlockComsumer();
+
         MessageConsumer messageConsumer = consumer.getConsumer(consumer.createSession());
         try {
             consumer.receiveMessage(messageConsumer);

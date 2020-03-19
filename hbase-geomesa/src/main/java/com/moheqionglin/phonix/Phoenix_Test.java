@@ -20,7 +20,7 @@ public class Phoenix_Test {
             e.printStackTrace();
         }
         // 这里配置zookeeper的地址，可单个，也可多个。可以是域名或者ip
-        String url = "jdbc:phoenix:172.16.217.67,172.16.217.68,172.16.217.51:/hbase/hbase";
+        String url = "jdbc:phoenix:10.16.217.67,10.16.217.68,10.16.217.51:/hbase/hbase";
         // String url =
         // "jdbc:phoenix:41.byzoro.com,42.byzoro.com,43.byzoro.com:2181";
         Connection conn = DriverManager.getConnection(url);

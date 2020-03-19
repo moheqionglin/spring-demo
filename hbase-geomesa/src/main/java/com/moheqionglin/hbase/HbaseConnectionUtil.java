@@ -25,8 +25,8 @@ public class HbaseConnectionUtil {
         hbaseConfiguration = HBaseConfiguration.create();
         hbaseConfiguration.set("hbase.zookeeper.property.clientPort", "2181");
 //        hbaseConfiguration.set("hbase.zookeeper.quorum", "127.0.0.1");
-        hbaseConfiguration.set("hbase.zookeeper.quorum", "172.16.217.51:2181/hbase");
-//        hbaseConfiguration.set("hbase.master", "172.16.218.97:8202");
+        hbaseConfiguration.set("hbase.zookeeper.quorum", "10.16.217.51:2181/hbase");
+//        hbaseConfiguration.set("hbase.master", "10.16.218.97:8202");
         return hbaseConfiguration;
     }
 

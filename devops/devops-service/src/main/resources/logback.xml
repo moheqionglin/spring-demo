@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="true" scanPeriod="30 minutes">
+
+    <!-- 日志文件存放的基础路径(路径最后不需要加/或\) -->
+    <property name="FILE_HOME" value="/Users/wanli.zhou/Workspace/self/spring-demo/devops/logs" />
+
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder 默认配置为PatternLayoutEncoder -->
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%level] [%logger{36}:%line] [%thread] [%X{userInfo}] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 文件输出 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FILE_HOME}/debug.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${FILE_HOME}/debugs_%i.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d %-5level [%thread] %C:%line -  [%X{userInfo}] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <!-- http://www.cnblogs.com/tankaixiong/archive/2013/03/08/2949857.html -->
+    <logger name="org.springframework" level="INFO" />
+
+    <logger name="com.alibaba.druid.pool" level = "WARN" />
+
+    <logger name="java.sql.Connection" level = "WARN" />
+    <logger name="java.sql.Statement" level = "WARN" />
+    <logger name="java.sql.PreparedStatement" level = "WARN" />
+    <logger name="java.sql.ResultSet" level = "WARN" />
+
+    <appender name="async-STDOUT" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>1024</queueSize>
+        <appender-ref ref="STDOUT" />
+        <includeCallerData>true</includeCallerData>
+    </appender>
+
+    <appender name="async-FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>1024</queueSize>
+        <appender-ref ref="FILE" />
+        <includeCallerData>true</includeCallerData>
+    </appender>
+    <root>
+        <priority value="DEBUG" />
+        <appender-ref ref="async-FILE" />
+        <appender-ref ref="async-STDOUT" />
+    </root>
+
+</configuration>

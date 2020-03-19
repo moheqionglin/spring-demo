@@ -13,6 +13,7 @@ import org.opengis.feature.simple.SimpleFeatureType;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author wanli.zhou
@@ -21,10 +22,12 @@ import java.util.*;
  */
 public class GeomesaWrit {
 
+    AtomicInteger id = new AtomicInteger(1);
+
     public static void main(String[] args) throws IOException {
         GeomesaWrit geomesaWrit = new GeomesaWrit();
-        DataStore dataStore = geomesaWrit.getDataStore(GeomesaInit.ZK, GeomesaInit.CATALOG);
-        geomesaWrit.write(dataStore, GeomesaInit.getSimpleFeatureTypeName(), geomesaWrit.getDatas());
+        DataStore dataStore = geomesaWrit.getDataStore(GeomesaDDL.ZK, GeomesaDDL.CATALOG);
+        geomesaWrit.write(dataStore, "lbs", geomesaWrit.getDatas());
     }
 
     public DataStore getDataStore(String zk, String catalog){
@@ -48,7 +51,7 @@ public class GeomesaWrit {
                 builder.set("biztime", new Date(data.getBiztime()));
                 builder.set("bizpoint","POINT(" + data.getLon() + " " + data.getLat() + ")");
 
-                SimpleFeature simpleFeature = builder.buildFeature(data.getBizId() + "");
+                SimpleFeature simpleFeature = builder.buildFeature(id.incrementAndGet() + "");
 
                 SimpleFeature toWrite = writer.next();
                 toWrite.setAttributes(simpleFeature.getAttributes());
