@@ -10,7 +10,7 @@ import org.apache.dubbo.config.annotation.Reference;
  * @Date: 2020-03-19 17:53
  */
 public class ConsumerAction {
-    @Reference
+    @Reference(interfaceClass = UserService.class, group = "g-1", version = "1.0.0")
     private UserService userService;
 
 

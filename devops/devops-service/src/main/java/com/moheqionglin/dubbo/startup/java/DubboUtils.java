@@ -174,7 +174,10 @@ public class DubboUtils {
         return methods;
     }
 
-    public static <T> T getReferenceFromZk(Class<T> clazz, String appName, String address, String group, String version, boolean async) {
+    public static <T> T getReferenceFromZk(Class<T> clazz, String appName, String address, String group, String version,
+                                           boolean async, String loadbalance,
+                                           int retry, String clusterFailStrenty,
+        int timeout) {
 
         ApplicationConfig application = new ApplicationConfig();
         application.setName(appName);
@@ -188,15 +191,16 @@ public class DubboUtils {
 
         ReferenceConfig<T> reference = new ReferenceConfig<T>();
         reference.setApplication(application);
+        reference.setCluster(clusterFailStrenty);
         reference.setRegistry(registry);
         reference.setConsumer(consumer);
+        reference.setRetries(retry);
         reference.setInterface(clazz);
         reference.setGroup(group);
-        reference.setLoadbalance("roundrobin");
+        reference.setLoadbalance(loadbalance);
         reference.setVersion(version);
         reference.setAsync(async);
-        reference.setTimeout(3000);
-
+        reference.setTimeout(timeout);
         return reference.get();
     }
 
@@ -221,6 +225,8 @@ public class DubboUtils {
         reference.setLoadbalance("roundrobin");
         reference.setVersion(version);
         reference.setAsync(async);
+        //一致性hash 必须设置 retry 为0
+        reference.setRetries(0);
         reference.setTimeout(3000);
         reference.setMethods(consistentConfigs(consistenMethodName, arguments));
         return reference.get();

@@ -3,6 +3,7 @@ RUN mkdir /source && wget https://github.com/apache/incubator-dubbo-admin/archiv
 RUN wget https://mirror.bit.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz && tar -zxvf apache-maven-3.6.3-bin.tar.gz -C /source
 WORKDIR /source/dubbo-admin-0.2.0
 RUN pwd && ls /source/dubbo-admin-0.2.0
+RUN sed -i 's/zookeeper:\/\/127.0.0.1:2181/zookeeper:\/\/host.docker.internal:2181\/dubbo/g' dubbo-admin-server/src/main/resources/application.properties
 RUN /source/apache-maven-3.6.3/bin/mvn clean package -Dmaven.test.skip=true
 
 FROM openjdk:8-jre

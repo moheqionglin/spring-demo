@@ -11,6 +11,6 @@
     <dubbo:registry address="zookeeper://127.0.0.1:2181/dubbo"/>
     <dubbo:provider timeout="3000" threads="500" retries="0"></dubbo:provider>
 
-    <dubbo:service interface="com.moheqionglin.dubbo.common.UserService" ref="userServiceImpl" group="g-1" timeout="40000"/>
+    <dubbo:service interface="com.moheqionglin.dubbo.common.UserService" ref="userServiceImpl" group="g-1" version="1.0.0" timeout="40000"/>
 
 </beans>

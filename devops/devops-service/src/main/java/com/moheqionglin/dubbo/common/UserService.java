@@ -10,11 +10,11 @@ import java.util.List;
  */
 public interface UserService {
 
-    void create(User u);
+    void create(int requestid , User u);
 
-    void delete(int userid);
+    void delete(int userid) throws InterruptedException;
 
-    List<User> findByName(String name);
+    List<User> findByName(String name) throws InterruptedException;
 
-    User findById(int userid);
+    User findById(int userid) throws InterruptedException;
 }

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class AnnotationProviderMain {
     public static void main(String[] args) throws InterruptedException {
         AnnotationConfigApplicationContext providerContext = new AnnotationConfigApplicationContext(ProviderAnnotationConfig.class);
-        providerContext.start();
+//        providerContext.start();
         synchronized (XmlProviderMain.class){
             XmlProviderMain.class.wait();
         }
