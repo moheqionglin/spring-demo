@@ -18,20 +18,41 @@ import java.lang.reflect.Method;
 @Aspect
 public class MultipleDsAop {
 
+    /**
+     *  aop 相同类不同函数间调用 无效。
+     *
+     * 1. 同类之间不同方法交叉调用
+     *    1.1 有datasourceKey的函数 -> 有datasourceKey的函数  [相同产品]   --> OK
+     *    1.2 有datasourceKey的函数 -> 有datasourceKey的函数  [不相同产品]
+     *    1.3 有datasourceKey的函数 -> 没有datasourceKey的函数
+     *    1.4 没有datasourceKey的函数 -> 有datasourceKey的函数
+     *    1.5 没有datasourceKey的函数 -> 没有datasourceKey的函数
+     *
+     * 2. 不同类之间不同方法交叉调用
+     *    1.1 有datasourceKey的函数 -> 有datasourceKey的函数  [相同产品]
+     *    1.2 有datasourceKey的函数 -> 有datasourceKey的函数  [不相同产品]
+     *    1.3 有datasourceKey的函数 -> 没有datasourceKey的函数
+     *    1.4 没有datasourceKey的函数 -> 有datasourceKey的函数
+     *    1.5 没有datasourceKey的函数 -> 没有datasourceKey的函数
+     *
+     */
+
     @Around("execution(public * com.moheiqonglin.shard.multipleDatasource.dao.*.*(..))")
     public Object routeAop(ProceedingJoinPoint pjp) throws Throwable {
-        DatasourceHolder.clearDatasourceKey();
+        String originDsKey = DatasourceHolder.getDatasourceKey();
 
         Object[] args = pjp.getArgs();
-
         int dsKeyParamIndex = getDsKeyParamIndex(pjp);
+
         if(dsKeyParamIndex < 0){
+            DatasourceHolder.clearDatasourceKey();
             return pjp.proceed();
+        }else{
+            DatasourceHolder.setDatasourceKey(String.valueOf(args[dsKeyParamIndex]));
         }
 
-        DatasourceHolder.setDatasourceKey(String.valueOf(args[dsKeyParamIndex]));
         Object proceed = pjp.proceed();
-
+        DatasourceHolder.setDatasourceKey(originDsKey);
         return proceed;
     }
 

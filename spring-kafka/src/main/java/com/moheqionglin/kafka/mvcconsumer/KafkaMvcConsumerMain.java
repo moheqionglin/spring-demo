@@ -4,8 +4,6 @@ import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.ServiceConfig;
-import com.moheqionglin.kafka.consumer.seek.KafkaSeekConsumerConfig;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  * Kafka 消费一个新topic，或者 用一个新的group消费一个老的topic的话， 默认是从最近的一条消息（也就是，consumer脸上kafka见到的一条消息开始消费。）

@@ -1,7 +1,7 @@
 package com.moheqionglin.kafka.mvcconsumer;
 
-import com.moheqionglin.kafka.SelfConfig;
-import com.moheqionglin.kafka.consumer.seek.KafkaSeekConsumerConfig;
+import com.moheqionglin.kafka.KafkaConfig;
+import com.moheqionglin.kafka.startup.springkafka.consumer.KafkaConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.LongDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -20,13 +20,13 @@ import java.util.Map;
 @Configuration
 @EnableKafka
 @ComponentScan(basePackages = "com.moheqionglin.kafka.mvcconsumer")
-@Import(KafkaSeekConsumerConfig.class)
+@Import(KafkaConsumerConfig.class)
 public class KafkaMvcConsumerConfig {
 
     @Bean
     public Map<String, Object> getStringObjectMap() {
         Map<String, Object> configProps = new HashMap<>();
-        configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, SelfConfig.server);
+        configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConfig.server);
         configProps.put(ConsumerConfig.GROUP_ID_CONFIG, "wanli-batch-cg");
         //如果设置 Auto_Commit_config = true的时候， 那么不只要Listener 函数执行结束，不管是正常结束还是异常结束,都会忽略该条message
         configProps.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);

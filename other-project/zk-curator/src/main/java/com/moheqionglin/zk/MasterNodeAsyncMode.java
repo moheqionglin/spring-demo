@@ -6,6 +6,7 @@ import org.apache.zookeeper.data.Stat;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MasterNodeAsyncMode implements Watcher {
 
@@ -49,12 +50,13 @@ public class MasterNodeAsyncMode implements Watcher {
                                 checkForLeaderSelectionFinish();
                                 break;
                             case OK:
+                                initZkNodes(nodeName);
                                 isLeader = true;
                                 break;
                             default:
                                 isLeader = false;
                         }
-                        System.out.println(isLeader ? "I am leader node" : "I am not leader node");
+                        System.out.println(nodeName + (isLeader ? " I am leader node" : "I am not leader node"));
                     }
                 }, null);
 
@@ -85,14 +87,15 @@ public class MasterNodeAsyncMode implements Watcher {
         zooKeeper.close();
     }
 
-    private void initZkNodes() {
-        asyncCreateNode("/workers", "");
-        asyncCreateNode("/assign", "");
-        asyncCreateNode("/tasks", "");
+    private void initZkNodes(String nodename) {
+        asyncCreateNode(nodename , "/workers", "");
+
+        asyncCreateNode(nodename , "/assign", "");
+        asyncCreateNode(nodename , "/tasks", "");
 
     }
 
-    private void asyncCreateNode(String path, final String data) {
+    private void asyncCreateNode(String createdIp, String path, final String data) {
         zooKeeper.create(path,
                 data.getBytes(StandardCharsets.UTF_8),
                 ZooDefs.Ids.OPEN_ACL_UNSAFE,
@@ -102,10 +105,10 @@ public class MasterNodeAsyncMode implements Watcher {
                     public void processResult(int returnCode, String path, Object ctx, String name) {
                         switch (KeeperException.Code.get(returnCode)){
                             case CONNECTIONLOSS:
-                                asyncCreateNode(path, data);
+                                asyncCreateNode(createdIp, path, data);
                                 break;
                             case OK:
-                                System.out.println("Create " + path + " with data " + data + " success!");
+                                System.out.println(createdIp + " Create " + path + " with data " + data + " success!");
                                 break;
                             case NODEEXISTS:
                                 System.out.println("Path " + path + " had exists!");
@@ -118,23 +121,35 @@ public class MasterNodeAsyncMode implements Watcher {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        String nodeName = "192.168.0." + new Random().nextInt(254);
-        MasterNodeAsyncMode masterNote = new MasterNodeAsyncMode("127.0.0.1:2181", nodeName);
-        System.out.println("current Node server id is : " + nodeName);
-        masterNote.startNode();
-        System.out.println("Start node selection ......");
-        masterNote.leaderSelection();
-        
-        
-        if(masterNote.isLeader){
-            masterNote.initZkNodes();
+        final AtomicInteger id = new AtomicInteger(0);
+        Runnable run = ()->{
+            String nodeName = "192.168.0." + id.incrementAndGet();
+            MasterNodeAsyncMode masterNote = new MasterNodeAsyncMode("127.0.0.1:2181", nodeName);
+            System.out.println("current Node server id is : " + nodeName);
+            try {
+                masterNote.startNode();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println(nodeName + " Start node selection ......");
+            masterNote.leaderSelection();
+
+            try {
+                Thread.sleep(60 * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            try {
+                masterNote.stopNode();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        };
+
+        for (int i = 0; i <3 ; i++) {
+            new Thread(run).start();
         }
         
-        try {
-            Thread.sleep(60 * 1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        masterNote.stopNode();
+
     }
 }

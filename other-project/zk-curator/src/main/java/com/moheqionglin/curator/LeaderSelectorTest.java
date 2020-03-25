@@ -25,24 +25,7 @@ public class LeaderSelectorTest {
                 CuratorFramework client = getClient();
                 clients.add(client);
 
-                final String name = "client#" + i;
-                LeaderSelector leaderSelector = new LeaderSelector(client, PATH, new LeaderSelectorListener() {
-                    @Override
-                    public void takeLeadership(CuratorFramework client) throws Exception {
 
-                        System.out.println(name + ":I am leader.");
-                        Thread.sleep(2000);
-                    }
-
-                    @Override
-                    public void stateChanged(CuratorFramework client, ConnectionState newState) {
-
-                    }
-                });
-
-                leaderSelector.autoRequeue();
-                leaderSelector.start();
-                selectors.add(leaderSelector);
 
             }
             Thread.sleep(Integer.MAX_VALUE);

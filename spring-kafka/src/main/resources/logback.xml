@@ -1,12 +1,30 @@
-<configuration>
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="true" scanPeriod="30 minutes">
+
+    <!-- 日志文件存放的基础路径(路径最后不需要加/或\) -->
+
+    <!-- 控制台输出 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder 默认配置为PatternLayoutEncoder -->
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%level] [%logger{36}:%line] [%thread] [%X{userInfo}] %msg%n</pattern>
         </encoder>
     </appender>
-    <logger name="org.apache.kafka" level="WARN"/>
-    <logger name="org.apache.kafka.common.metrics" level="WARN"/>
-    <root level="DEBUG">
+
+    <!-- http://www.cnblogs.com/tankaixiong/archive/2013/03/08/2949857.html -->
+    <logger name="org.springframework" level="INFO" />
+    <logger name="org.springframework.kafka" level="DEBUG" />
+
+    <logger name="com.alibaba.druid.pool" level = "WARN" />
+
+    <logger name="java.sql.Connection" level = "WARN" />
+    <logger name="java.sql.Statement" level = "WARN" />
+    <logger name="java.sql.PreparedStatement" level = "WARN" />
+    <logger name="java.sql.ResultSet" level = "WARN" />
+    <logger name="org.apache.kafka" level = "DEBUG" />
+    <root>
+        <priority value="DEBUG" />
         <appender-ref ref="STDOUT" />
     </root>
+
 </configuration>

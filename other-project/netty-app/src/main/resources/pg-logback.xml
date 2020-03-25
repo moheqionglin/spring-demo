@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<appender name="consolelog" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d %-5level [%thread] %C:%line - %msg%n</pattern>
+		</layout>
+	</appender>
+	<appender name="pgappender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/Users/wanli.zhou/Workspace/self/spring-demo/other-project/netty-app/pgv3.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/Users/wanli.zhou/Workspace/self/spring-demo/other-project/netty-app/pgv3.log.%i.%d{yyyy-MM-dd}</fileNamePattern>
+			<maxHistory>2</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>1MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d %-5level [%thread] %C:%line - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<root>
+		<level value="info" />
+		<appender-ref ref="pgappender" />
+		<appender-ref ref="consolelog" />
+	</root>
+</configuration>

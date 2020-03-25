@@ -36,7 +36,6 @@ public class MasterNodeSyncMode implements Watcher {
     public void leaderSelection() throws InterruptedException {
         for(;;){
             try {
-
                 String s = zooKeeper.create(MASTER_ZK_PATH, nodeName.getBytes(StandardCharsets.UTF_8),ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
                 System.out.println(s);
 
@@ -134,25 +133,43 @@ public class MasterNodeSyncMode implements Watcher {
      *
      * */
     public static void main(String[] args) throws IOException, InterruptedException {
-        String nodeName = "192.168.0." + new Random().nextInt(254);
-        MasterNodeSyncMode masterNote = new MasterNodeSyncMode("127.0.0.1:2181", nodeName);
-        System.out.println("current Node server id is : " + nodeName);
-        masterNote.startNode();
-        System.out.println("Start node selection ......");
-        masterNote.leaderSelection();
+        Runnable run = ()->{
+            String nodeName = "192.168.0." + new Random().nextInt(254);
+            MasterNodeSyncMode masterNote = new MasterNodeSyncMode("127.0.0.1:2181", nodeName);
+            System.out.println("current Node server id is : " + nodeName);
+            try {
+                masterNote.startNode();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Start node selection ......");
+            try {
+                masterNote.leaderSelection();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
-        System.out.println(masterNote.isLeader ? "I am leader node" : "I am not leader node");
+            System.out.println(nodeName + (masterNote.isLeader ? "I am leader node" : "I am not leader node") );
 
-        if(masterNote.isLeader){
-            masterNote.initZkNodes();
+            if(masterNote.isLeader){
+                masterNote.initZkNodes();
+            }
+
+            try {
+                Thread.sleep(60 * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            try {
+                masterNote.stopNode();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        };
+        for (int i = 0; i <3 ; i++) {
+            new Thread(run).start();
         }
-        
-        try {
-            Thread.sleep(60 * 1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        masterNote.stopNode();
+
     }
 
 }
