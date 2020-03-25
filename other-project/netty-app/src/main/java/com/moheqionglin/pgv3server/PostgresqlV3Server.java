@@ -85,10 +85,10 @@ public class PostgresqlV3Server {
             log.info("Start success ! listen at " + port);
         } catch (InterruptedException e) {
             log.error("Postgresql V3 Server error", e);
-        }finally {
             channelFuture.channel().closeFuture().sync();
             boss.shutdownGracefully();
             worker.shutdownGracefully();
+        }finally {
             log.info("Stop Postgresql V3 server success !");
         }
     }

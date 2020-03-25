@@ -31,10 +31,10 @@ import java.util.List;
  */
 public class V3DataRow implements BaseProtocolEncoder {
 
-    private List<List<Object>> rst ;
+    private List<Object> row ;
 
-    public V3DataRow(List<List<Object>> rst) {
-        this.rst = rst;
+    public V3DataRow(List<Object> rst) {
+        this.row = rst;
     }
 
     @Override
@@ -44,15 +44,12 @@ public class V3DataRow implements BaseProtocolEncoder {
         int writeIndex = buffer.writerIndex();
         buffer.writeInt(length);
 
-        buffer.writeShort((short) rst.size());
-        for (int i = 0; i < rst.size(); i++) {
-            List<Object> row = rst.get(i);
-            for(int j = 0 ; j < row.size(); j ++){
-                byte[] serialize = serialize(row.get(j));
-                buffer.writeInt(serialize.length);
-                buffer.writeBytes(serialize);
-                length += (4 + serialize.length);
-            }
+        buffer.writeShort((short) row.size());
+        for(int j = 0 ; j < row.size(); j ++){
+            byte[] serialize = serialize(row.get(j));
+            buffer.writeInt(serialize.length);
+            buffer.writeBytes(serialize);
+            length += (4 + serialize.length);
         }
         buffer.setIndex(writeIndex, length);
     }

@@ -41,7 +41,10 @@ public class SelectSqlProcessor implements SqlProcessor{
         try{
             //process select
             ctx.writeAndFlush(new V3RowDescription(selectColus, col2JavaTypes));
-            ctx.writeAndFlush(new V3DataRow(result));
+//            result.stream().forEach(val -> {
+//                ctx.writeAndFlush(new V3DataRow(val));
+//            });
+            ctx.writeAndFlush(new V3DataRow(result.get(0)));
             ctx.writeAndFlush(new V3CommandComplete("SELECT " + result.size()));
             log.info("Simple Query, select success for sql {}", sql);
         }catch (Exception e){

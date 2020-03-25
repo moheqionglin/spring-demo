@@ -26,7 +26,7 @@ public class V3Query implements BaseProtocolDecoder {
     public void decode(ByteBuf byteBuf) {
         byteBuf.readByte();
         int len = byteBuf.readInt();
-        byte[] body = new byte[len - 4];
+        byte[] body = new byte[len - 5];
         byteBuf.readBytes(body);
         byteBuf.readByte();// skip '\0'
         this.query = new String(body, Charsets.UTF_8);

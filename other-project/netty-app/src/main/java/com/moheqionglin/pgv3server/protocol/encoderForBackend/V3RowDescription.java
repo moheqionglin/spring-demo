@@ -5,6 +5,8 @@ import com.moheqionglin.pgv3server.tools.PGV3Type;
 import io.netty.buffer.ByteBuf;
 import io.netty.util.CharsetUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +28,7 @@ public class V3RowDescription implements BaseProtocolEncoder {
     private List<String> cols;
     private HashMap<String, Class> col2JavaType = new HashMap();
 
+    private Logger log = LoggerFactory.getLogger(this.getClass());
     public V3RowDescription(List<String> cols, HashMap<String, Class> col2JavaType) {
         this.cols = cols;
         this.col2JavaType = col2JavaType;
@@ -43,6 +46,7 @@ public class V3RowDescription implements BaseProtocolEncoder {
      */
     @Override
     public void encode(ByteBuf byteBuf) {
+
         byteBuf.writeByte((byte)'T');
         int length = 6;
         int writeIndex = byteBuf.writerIndex();
@@ -52,15 +56,17 @@ public class V3RowDescription implements BaseProtocolEncoder {
         for (int i = 0; i < cols.size(); i++) {
             String col = StringUtils.trimToEmpty(cols.get(i));
             PGV3Type pgType = PGV3Type.parse(col2JavaType.get(col));
-            byteBuf.writeBytes((col + "\0").getBytes(CharsetUtil.UTF_8));
+            byte[] bytes = (col + "\0").getBytes(CharsetUtil.UTF_8);
+            byteBuf.writeBytes(bytes);
             byteBuf.writeInt(12399);
             byteBuf.writeShort((short)i);
             byteBuf.writeInt(pgType.getOid());
             byteBuf.writeShort(pgType.getLength());
             byteBuf.writeInt(pgType.getTypeCode());
-            byteBuf.writeShort(0);
-            length += 18;
+            byteBuf.writeShort((short)0);
+            length += ( 18 + bytes.length);
         }
         byteBuf.setInt(writeIndex, length);
+        log.info(" V3RowDescription length = {}, readable bytes = {}", length, byteBuf.readableBytes());
     }
 }

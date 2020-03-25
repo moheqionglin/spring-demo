@@ -13,10 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @ClassName : SqlProcessorManager
@@ -30,8 +27,13 @@ public class SqlProcessorManager {
     private final static SqlProcessorManager sqlProcessorManager = new SqlProcessorManager();
 
     private SqlProcessorManager(){
-        Reflections reflections = new Reflections("com.moheqionglin.pgv3server.bizservice");
-        Set<Class<? extends SqlProcessor>> processors = reflections.getSubTypesOf(SqlProcessor.class);
+//        Reflections reflections = new Reflections("com.moheqionglin.pgv3server.bizservice");
+//        Set<Class<? extends SqlProcessor>> processors = reflections.getSubTypesOf(SqlProcessor.class);
+        Set<Class<? extends SqlProcessor>> processors = new HashSet<>();
+        processors.add(DDLSqlProcessor.class);
+        processors.add(InsertSqlProcessor.class);
+        processors.add(NavicatSqlProcessor.class);
+        processors.add(SelectSqlProcessor.class);
 
         for(Iterator<Class<? extends SqlProcessor>> iterator = processors.iterator(); iterator.hasNext();) {
             Class<? extends SqlProcessor> clazz = iterator.next();
@@ -41,33 +43,6 @@ public class SqlProcessorManager {
                 log.error("init class " + clazz.getName() + " error", e);
             }
         }
-    }
-
-    public static void main(String[] args) {
-
-        ConfigurationBuilder builder = new ConfigurationBuilder();
-        builder.addUrls(ClasspathHelper.forPackage("com.moheqionglin.pgv3server.bizservice"));
-        builder.setScanners(new TypeAnnotationsScanner(), new SubTypesScanner(),
-                new MethodAnnotationsScanner(), new FieldAnnotationsScanner());
-        builder.filterInputsBy(new FilterBuilder().includePackage("com.moheqionglin.pgv3server.bizservice"));
-        Reflections reflections = new Reflections(builder);
-
-        Set<Class<?extends SqlProcessor>> classes = reflections.getSubTypesOf(SqlProcessor.class);
-
-        for(Class<?> clazz : classes){
-            System.out.println(clazz.getName());
-        }
-//
-//        Set<Class<? extends SqlProcessor>> processors = reflections.getSubTypesOf(SqlProcessor.class);
-//
-//        for(Iterator<Class<? extends SqlProcessor>> iterator = processors.iterator(); iterator.hasNext();) {
-//            Class<? extends SqlProcessor> clazz = iterator.next();
-//            try {
-//                sqlProcessors.add((SqlProcessor) clazz.newInstance());
-//            } catch (InstantiationException | IllegalAccessException e) {
-//                e.printStackTrace();
-//            }
-//        }
     }
 
     public static SqlProcessorManager getInstance(){

@@ -11,11 +11,11 @@ import java.util.List;
 @Ignore
 public class SimpleQueryDMLTest {
     private final String PG_SERVER_URL = "jdbc:postgresql://127.0.0.1:5432/willy?useUnicode=true&amp;characterEncoding=utf-8&amp;rewriteBatchedInserts=true&loglevel=2&rewriteBatchedStatements=true&preferQueryMode=simple";
-    private final String PG_NETTY_URL = "jdbc:postgresql://127.0.0.1:6432/willy?useUnicode=true&amp;characterEncoding=utf-8&amp;rewriteBatchedInserts=true&loglevel=2&rewriteBatchedStatements=true&preferQueryMode=simple";
+    private final String PG_NETTY_URL = "jdbc:postgresql://127.0.0.1:6543/willy?useUnicode=true&amp;characterEncoding=utf-8&amp;rewriteBatchedInserts=true&loglevel=2&rewriteBatchedStatements=true&preferQueryMode=simple";
 
-    private final String PG_LOCAL_URL = PG_SERVER_URL;
-    private final String PG_USER = "postgresql";
-    private final String PG_PWD = "123456";
+    private final String PG_LOCAL_URL = PG_NETTY_URL;
+    private final String PG_USER = "willy";
+    private final String PG_PWD = "123456#";
 
 
     @Test
@@ -58,12 +58,16 @@ public class SimpleQueryDMLTest {
         Connection con = DriverManager.getConnection(PG_LOCAL_URL, PG_USER, PG_PWD);
         Statement stm = con.createStatement();
 
-        ResultSet rst = stm.executeQuery("id, name, sex,createdAt");
+        ResultSet rst = stm.executeQuery("select id, name, sex,createdAt from demo");
         while (rst.next()){
-            System.out.println(rst.getString("id") + "\t" +
-                    rst.getString("name") +"\t"+
-                    rst.getBoolean("sex") +"\t"+
-                    sdf.format(rst.getDate("createAt"))
+            System.out.println(rst.getInt("int_t") + "\t" +
+                    rst.getString("varchar_t") +"\t"+
+                    rst.getBoolean("bool_t") +"\t"+
+                    rst.getShort("short_t") +"\t"+
+                    rst.getLong("long_t") +"\t"+
+                    rst.getFloat("float_t") +"\t"+
+                    rst.getDouble("double_t") +"\t"+
+                    sdf.format(rst.getDate("data_t"))
             );
         }
     }

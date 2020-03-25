@@ -34,11 +34,11 @@ public class V3PasswordMessage implements BaseProtocolDecoder {
     public void decode(ByteBuf byteBuf) {
         byteBuf.readByte();
         int messageLength = byteBuf.readInt();
-        byte[] digest = new byte[messageLength - 5];
+        digest = new byte[messageLength - 5];
         byteBuf.readBytes(digest);
         //discard one byte 0
         byteBuf.readByte();
-        log.info("Decode success V3PasswordMessage");
+        log.info("Decode success V3PasswordMessage {}", digest.length);
     }
 
     @Override

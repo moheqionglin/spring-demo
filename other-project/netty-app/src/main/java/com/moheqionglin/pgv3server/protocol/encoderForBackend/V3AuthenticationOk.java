@@ -29,6 +29,6 @@ public class V3AuthenticationOk implements BaseProtocolEncoder {
     public void encode(ByteBuf buffer) {
         buffer.writeByte(flag);
         buffer.writeInt(length);
-        buffer.writeByte(authentication);
+        buffer.writeInt(authentication);
     }
 }

@@ -30,9 +30,9 @@ public class V3PasswordMessageInboundHandler extends SimpleChannelInboundHandler
         }
 
         int md5Salt = Integer.valueOf(md5SaltStr);
-
-        for(String username : PgDao.pgConnectionParams.keySet()){
-            byte[] pwdMd5 = MD5Digest.encode(username.getBytes(Charsets.UTF_8), PgDao.pgConnectionParams.get(username).getBytes(Charsets.UTF_8), Bytes.toBytes(md5Salt));
+        boolean authSuccess = false;
+        for(String username : PgDao.user2Pwd.keySet()){
+            byte[] pwdMd5 = MD5Digest.encode(username.getBytes(Charsets.UTF_8), PgDao.user2Pwd.get(username).getBytes(Charsets.UTF_8), Bytes.toBytes(md5Salt));
             if(Arrays.equals(message.getDigest(), pwdMd5)){
                 ctx.writeAndFlush(new V3AuthenticationOk());
                 PgSessionManager.setSessionVal(ctx.channel().id(), "userName", username);
@@ -46,14 +46,13 @@ public class V3PasswordMessageInboundHandler extends SimpleChannelInboundHandler
                 ctx.writeAndFlush(new V3BackendKeyData(ctx.channel().id().asShortText().hashCode(), ctx.channel().id().asLongText().hashCode()));
 
                 ctx.writeAndFlush(new V3ReadyForQuery((byte) 'I'));
-
-            }else{
-                ctx.writeAndFlush(new V3ErrorResponse("invalid username or password !"));
-                log.warn("invalid user name and password from ip {}",  V3Utils.getRemoteIp(ctx));
+                authSuccess = true;
             }
         }
-
-
+        if(!authSuccess){
+            ctx.writeAndFlush(new V3ErrorResponse("invalid username or password !"));
+            log.warn("invalid user name and password from ip {}",  V3Utils.getRemoteIp(ctx));
+        }
     }
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
