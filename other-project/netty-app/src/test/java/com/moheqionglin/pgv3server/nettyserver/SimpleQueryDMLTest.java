@@ -80,7 +80,7 @@ public class SimpleQueryDMLTest {
         Statement stm = con.createStatement();
         ResultSet rst = stm.executeQuery("select count(1) from demo");
         while (rst.next()){
-            System.out.println(rst.getString("count")
+            System.out.println(rst.getInt("int_t")
             );
         }
     }

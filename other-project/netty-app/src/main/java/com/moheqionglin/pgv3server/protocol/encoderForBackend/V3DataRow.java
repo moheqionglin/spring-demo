@@ -51,7 +51,7 @@ public class V3DataRow implements BaseProtocolEncoder {
             buffer.writeBytes(serialize);
             length += (4 + serialize.length);
         }
-        buffer.setIndex(writeIndex, length);
+        buffer.setInt(writeIndex, length);
     }
 
     public static byte[] serialize(Object o){

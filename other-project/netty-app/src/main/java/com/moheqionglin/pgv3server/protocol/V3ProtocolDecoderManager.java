@@ -23,17 +23,8 @@ public class V3ProtocolDecoderManager {
     private final static V3ProtocolDecoderManager v3ProtocolDecoderManager = new V3ProtocolDecoderManager();
 
     private V3ProtocolDecoderManager(){
-//        Reflections reflections = new Reflections("com.moheqionglin.pgv3server.protocol.decoder");
-//        Set<Class<? extends BaseProtocolDecoder>> decoderClasses = reflections.getSubTypesOf(BaseProtocolDecoder.class);
-        Set<Class<? extends BaseProtocolDecoder>> decoderClasses = new HashSet<>();
-        decoderClasses.add(V3Bind.class);
-        decoderClasses.add(V3CancelRequest.class);
-        decoderClasses.add(V3Parse.class);
-        decoderClasses.add(V3PasswordMessage.class);
-        decoderClasses.add(V3Query.class);
-        decoderClasses.add(V3SSLRequest.class);
-        decoderClasses.add(V3StartupMessage.class);
-        decoderClasses.add(V3Terminate.class);
+        Reflections reflections = new Reflections("com.moheqionglin.pgv3server.protocol.decoder");
+        Set<Class<? extends BaseProtocolDecoder>> decoderClasses = reflections.getSubTypesOf(BaseProtocolDecoder.class);
         for(Class clazz : decoderClasses) {
             try {
                 decoders.add((BaseProtocolDecoder) clazz.newInstance());
@@ -42,7 +33,6 @@ public class V3ProtocolDecoderManager {
             }
         }
     }
-
     public static V3ProtocolDecoderManager getInstance(){
         return v3ProtocolDecoderManager;
     }

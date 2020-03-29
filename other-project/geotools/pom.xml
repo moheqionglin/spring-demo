@@ -27,6 +27,13 @@
             <artifactId>gt-swing</artifactId>
             <version>${geotools-swing.version}</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>com.vividsolutions</groupId>
+            <artifactId>jts</artifactId>
+            <version>1.13</version>
+        </dependency>
     </dependencies>
 
     <repositories>

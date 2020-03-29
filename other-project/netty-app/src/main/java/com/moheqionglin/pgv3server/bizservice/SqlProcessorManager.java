@@ -27,18 +27,13 @@ public class SqlProcessorManager {
     private final static SqlProcessorManager sqlProcessorManager = new SqlProcessorManager();
 
     private SqlProcessorManager(){
-//        Reflections reflections = new Reflections("com.moheqionglin.pgv3server.bizservice");
-//        Set<Class<? extends SqlProcessor>> processors = reflections.getSubTypesOf(SqlProcessor.class);
-        Set<Class<? extends SqlProcessor>> processors = new HashSet<>();
-        processors.add(DDLSqlProcessor.class);
-        processors.add(InsertSqlProcessor.class);
-        processors.add(NavicatSqlProcessor.class);
-        processors.add(SelectSqlProcessor.class);
+        Reflections reflections = new Reflections("com.moheqionglin.pgv3server.bizservice");
+        Set<Class<? extends SqlProcessor>> processors = reflections.getSubTypesOf(SqlProcessor.class);
 
         for(Iterator<Class<? extends SqlProcessor>> iterator = processors.iterator(); iterator.hasNext();) {
             Class<? extends SqlProcessor> clazz = iterator.next();
             try {
-                sqlProcessors.add((SqlProcessor) clazz.newInstance());
+                sqlProcessors.add(clazz.newInstance());
             } catch (InstantiationException | IllegalAccessException e) {
                 log.error("init class " + clazz.getName() + " error", e);
             }

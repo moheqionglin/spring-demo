@@ -364,6 +364,8 @@
         <module>spring-elasticsearch</module>
         <module>hbase-geomesa</module>
         <module>devops</module>
+        <module>mohe-jdbc</module>
+        <module>mohe-flink</module>
     </modules>
 
     <repositories>

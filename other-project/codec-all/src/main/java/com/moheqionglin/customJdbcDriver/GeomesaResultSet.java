@@ -1,11 +1,15 @@
 package com.moheqionglin.customJdbcDriver;
 
+import org.opengis.feature.simple.SimpleFeature;
+
 import java.io.InputStream;
 import java.io.Reader;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,8 +18,19 @@ import java.util.Map;
  * @time 2019-10-12 16:07
  */
 public class GeomesaResultSet implements ResultSet {
+    private int cursor = -1;
+    private List<SimpleFeature> results = new ArrayList<>();
+
+    public GeomesaResultSet(List<SimpleFeature> results) {
+        this.results = results;
+    }
+
     @Override
     public boolean next() throws SQLException {
+        if ((this.cursor + 1) < this.results.size()) {
+            this.cursor++;
+            return true;
+        }
         return false;
     }
 
@@ -206,7 +221,7 @@ public class GeomesaResultSet implements ResultSet {
 
     @Override
     public ResultSetMetaData getMetaData() throws SQLException {
-        return null;
+        return new GeomesaResultSetMetaData();
     }
 
     @Override
