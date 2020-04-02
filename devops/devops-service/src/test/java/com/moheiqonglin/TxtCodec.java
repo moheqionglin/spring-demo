@@ -15,11 +15,11 @@ public class TxtCodec {
 
 
     public static void main(String[] args) {
-        String filePath = "/Users/wanli.zhou/Workspace/self/spring-demo/mohe-flink/src/main/scala/com/moheqionglin/flink/FlinkStatistics.scala";
+//        String filePath = "/Users/zhouwanli/Workspace/github/spring-demo/mohe-flink/pom.xml.s";
         //加密
 //        codec(filePath, true);
         //解密
-        codec("/Users/wanli.zhou/Workspace/self/spring-demo/mohe-flink/src/main/scala/com/moheqionglin/flink/FlinkStatistics.scala.s", false);
+        codec("/Users/zhouwanli/Workspace/github/spring-demo/mohe-flink/src/main/scala/com/moheqionglin/flink/FlinkStatistics.scala.s", false);
     }
 
     private static void codec(String filePath, boolean jiami) {
