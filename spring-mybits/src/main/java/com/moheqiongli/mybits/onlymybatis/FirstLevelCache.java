@@ -1,4 +1,4 @@
-package com.moheqiongli.mybits;
+package com.moheqiongli.mybits.onlymybatis;
 
 
 import com.moheqiongli.mybits.domain.Blog;
@@ -21,7 +21,7 @@ import java.io.InputStream;
 
 public class FirstLevelCache {
     public static void main(String[] args) throws IOException {
-        String resource = "mybits-conf.xml";
+        String resource = "only-mybits/mapper/mybits-conf.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 

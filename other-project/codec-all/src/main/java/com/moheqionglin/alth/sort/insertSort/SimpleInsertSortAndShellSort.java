@@ -9,14 +9,22 @@ import com.moheqionglin.alth.Util;
  */
 public class SimpleInsertSortAndShellSort {
     public static void main(String[] args) {
-        int array[] = Util.mockArray(10);
-        Util.print(array);
+        Integer a = Integer.valueOf(129);
+        Integer b = Integer.valueOf(129);
+        System.out.println(a == b);
 
-        simpleInsertSort(array);
-        Util.print(array);
+        Integer a1 = Integer.parseInt("129");
+        Integer a2 = Integer.parseInt("129");
+        System.out.println(a1 == Integer.parseInt("129"));
 
-        shellSort1(array);
-        Util.print(array);
+//        int array[] = Util.mockArray(10);
+//        Util.print(array);
+//
+//        simpleInsertSort(array);
+//        Util.print(array);
+//
+//        shellSort1(array);
+//        Util.print(array);
     }
 
     private static void simpleInsertSort(int[] array) {

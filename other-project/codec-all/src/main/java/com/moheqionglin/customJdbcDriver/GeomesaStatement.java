@@ -11,7 +11,7 @@ public class GeomesaStatement implements Statement {
     @Override
     public ResultSet executeQuery(String sql) throws SQLException {
 
-        return new GeomesaResultSet();
+        return new GeomesaResultSet(null);
     }
 
     @Override

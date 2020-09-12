@@ -13,6 +13,11 @@ import java.util.concurrent.locks.LockSupport;
  * @time 2019-11-22 16:24
  *
  * 公平锁实现方式
+ *
+ *  1. state
+ *  2. 排队队列
+ *  3. CAS
+ *  4. LockSupport.park
  */
 @Component
 public class CustomAQSLock {
@@ -36,10 +41,12 @@ public class CustomAQSLock {
         int s = getState();
         if(s == 0){
             //公平锁, 所以获取的时候要从队列中拿到线程
-            if((waiter.isEmpty() || thread == waiter.peek()) && casSate(0, 1)){
+            if(casSate(0, 1)){
                 setLockHolderThread(thread);
                 return true;
             }
+        }else if(thread == waiter.peek()){
+           return true;
         }
         return false;
     }
