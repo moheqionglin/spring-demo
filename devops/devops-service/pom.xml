@@ -11,7 +11,7 @@
 
     <artifactId>devops-service</artifactId>
     <properties>
-        <dubbo.version>2.7.5</dubbo.version>
+        <dubbo.version>2.7.15</dubbo.version>
     </properties>
 
     <dependencies>
