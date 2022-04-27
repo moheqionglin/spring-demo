@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+ASPECTJ_WEAVER=/Users/zhouwanli/.m2/repository/org/aspectj/aspectjweaver/1.8.9/aspectjweaver-1.8.9.jar
+ASPECTJ_RT=/Users/zhouwanli/.m2/repository/org/aspectj/aspectjrt/1.8.9/aspectjrt-1.8.9.jar
+ASPECTJ_TOOLS=/Users/zhouwanli/.m2/repository/org/aspectj/aspectjtools/1.8.9/aspectjtools-1.8.9.jar
+
+
+# 跟2的区别是， 1是直接用java源码调用 $ASPECTJ_RT 生产 最终的class字节码， 2是通过已有的class字节码生产class字节码
+java -jar $ASPECTJ_TOOLS -cp $ASPECTJ_RT -source 1.8 -sourceroots src/main/java/ -d target/classes
+
+#java -cp /Users/zhouwanli/.m2/repository/org/aspectj/aspectjrt/1.8.9/aspectjrt-1.8.9.jar:/Users/zhouwanli/Workspace/github/spring-demo/aspectJ/target/classes com.moheqionglin.HelloWorld

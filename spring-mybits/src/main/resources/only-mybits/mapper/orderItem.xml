@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.OrdersMapper">
+    <!--开启本mapper的namespace下的二级缓存-->
+    <!--
+        eviction:代表的是缓存回收策略，目前MyBatis提供以下策略。
+        (1) LRU,最近最少使用的，一处最长时间不用的对象
+        (2) FIFO,先进先出，按对象进入缓存的顺序来移除他们
+        (3) SOFT,软引用，移除基于垃圾回收器状态和软引用规则的对象
+        (4) WEAK,弱引用，更积极的移除基于垃圾收集器状态和弱引用规则的对象。这里采用的是LRU，
+                移除最长时间不用的对形象
+
+        flushInterval:刷新间隔时间，单位为毫秒，这里配置的是100秒刷新，如果你不配置它，那么当
+        SQL被执行的时候才会去刷新缓存。
+
+        size:引用数目，一个正整数，代表缓存最多可以存储多少个对象，不宜设置过大。设置过大会导致内存溢出。
+        这里配置的是1024个对象
+
+        readOnly:只读，意味着缓存数据只能读取而不能修改，这样设置的好处是我们可以快速读取缓存，缺点是我们没有
+        办法修改缓存，他的默认值是false，不允许我们修改
+    -->
+    <cache eviction="LRU" flushInterval="10000" readOnly="true" size="1024"/>
+    <resultMap id="UserResultMap" type="com.moheqiongli.mybits.domain.OrderItem">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="order_id" jdbcType="INTEGER" property="orderId" />
+        <result column="product_id" jdbcType="INTEGER" property="productId" />
+        <result column="product_name" jdbcType="VARCHAR" property="productName" />
+        <result column="product_profile_img" jdbcType="VARCHAR" property="productProfileImg" />
+        <result column="product_size" jdbcType="VARCHAR" property="productSize" />
+        <result column="product_cnt" jdbcType="INTEGER" property="productCnt" />
+        <result column="product_total_price" jdbcType="DECIMAL" property="productTotalPrice" />
+        <result column="product_unit_price" jdbcType="DECIMAL" property="productUnitPrice" />
+        <result column="product_sanzhuang" jdbcType="BIT" property="productSanzhuang" />
+        <result column="chajia_total_weight" jdbcType="VARCHAR" property="chajiaTotalWeight" />
+        <result column="chajia_total_price" jdbcType="DECIMAL" property="chajiaTotalPrice" />
+        <result column="jianhuo_success" jdbcType="BIT" property="jianhuoSuccess" />
+        <result column="jianhuo_time" jdbcType="TIMESTAMP" property="jianhuoTime" />
+
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+        <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, rule_id, billing_order_type, supplier_fee, transporter_base_fee, freight_ratio,
+    create_user, update_user, is_del, create_time, update_time
+  </sql>
+
+    <!--使用resultType-->
+    <select id="selectOrderItemById" resultType="com.moheqiongli.mybits.domain.OrderItem" useCache="true">
+        select * from orders where id = #{id}
+    </select>
+    <!--使用resultMap-->
+    <select id="selectOrderItemById2" resultMap="UserResultMap" useCache="true">
+        select * from orders where id = #{id}
+    </select>
+
+    <update id="updateOrderItem" parameterType="com.moheqiongli.mybits.domain.OrderItem">
+        UPDATE orders_item
+        <trim prefix="set" suffixOverrides=",">
+            <if test="title!=null">`title` = #{title}  , </if>
+            <if test="content!=null">`content` = #{content} , </if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+
+</mapper>

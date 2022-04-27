@@ -9,7 +9,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.servlet.DispatcherServlet;
 
 public class JettyServer {
-    private static final int DEFAULT_PORT = 8080;
+    private static final int DEFAULT_PORT = 8911;
     private static final String CONTEXT_PATH = "/";
     private static final String MAPPING_URL = "/*";
 

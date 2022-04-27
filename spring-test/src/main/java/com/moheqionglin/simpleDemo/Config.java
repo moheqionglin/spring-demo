@@ -11,7 +11,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 //@configurable 相当于 xml
 @Configurable
-@ComponentScan(basePackages = {"com.moheqionglin.demo"})
+@ComponentScan(basePackages = {"com.moheqionglin.simpleDemo"})
 @PropertySource("classpath:application.properties")
 public class Config {
 
@@ -21,5 +21,10 @@ public class Config {
     @Bean
     public TestBean tBean(){
         return new TestBean();
+    }
+
+    @Bean
+    public BeanDynamicRegister beanDynamicRegister(){
+        return new BeanDynamicRegister();
     }
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.BlogMapper">
+<mapper namespace="mapper.UserMapper">
     <!--开启本mapper的namespace下的二级缓存-->
     <!--
         eviction:代表的是缓存回收策略，目前MyBatis提供以下策略。
@@ -22,7 +22,7 @@
         办法修改缓存，他的默认值是false，不允许我们修改
     -->
     <cache eviction="LRU" flushInterval="10000" readOnly="true" size="1024"/>
-    <resultMap id="UserResultMap" type="com.moheqiongli.mybits.message.UserInfo">
+    <resultMap id="UserResultMap" type="com.moheqiongli.mybits.domain.User">
         <id column="id" jdbcType="BIGINT" property="id" />
         <result column="sex" jdbcType="VARCHAR" property="sex" />
         <result column="password" jdbcType="VARCHAR" property="password" />
@@ -54,7 +54,7 @@
     </select>
 
     <update id="updateUser" parameterType="com.moheqiongli.mybits.domain.User">
-        UPDATE blog
+        UPDATE users
         <trim prefix="set" suffixOverrides=",">
             <if test="title!=null">`title` = #{title}  , </if>
             <if test="content!=null">`content` = #{content} , </if>

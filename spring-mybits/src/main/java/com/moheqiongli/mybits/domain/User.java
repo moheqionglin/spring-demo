@@ -14,7 +14,7 @@ public class User implements Serializable {
     private Long id;
     private String sex;
     private String password;
-    private String nick_name;
+    private String nickName;
     private Date birthday;
     private Timestamp regTime;
     private String headPicture;
@@ -51,12 +51,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getNick_name() {
-        return nick_name;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setNick_name(String nick_name) {
-        this.nick_name = nick_name;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public Date getBirthday() {

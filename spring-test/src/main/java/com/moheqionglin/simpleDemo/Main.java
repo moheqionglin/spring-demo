@@ -14,6 +14,7 @@ public class Main {
 
         TestBean tb = (TestBean) applicationContext.getBean("tBean");
         System.out.println(tb);
+        System.out.println(tb.getAts());
         String names[] = applicationContext.getBeanNamesForType(TestBean.class);
         for(String name : names){
             System.out.println(name);
@@ -21,6 +22,9 @@ public class Main {
 
         TestDao td = (TestDao) applicationContext.getBean("testDao");
         System.out.println(td);
+
+        Dog dog = (Dog) applicationContext.getBean("Doggg");
+        System.out.println(dog);
 
     }
 }

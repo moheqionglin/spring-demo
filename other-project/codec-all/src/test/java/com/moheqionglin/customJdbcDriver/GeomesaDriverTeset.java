@@ -19,6 +19,7 @@ public class GeomesaDriverTeset {
     private GeomesaDriver geomesaDriver = new GeomesaDriver();
 
 
+
     @Test
     public void uriTest() throws URISyntaxException {
         String url = "jdbc:tssql://10.16.224.28:2181/hbase?back_zk_host=10.16.224.29:2181,10.16.224.30:2181&catalog=xxx";

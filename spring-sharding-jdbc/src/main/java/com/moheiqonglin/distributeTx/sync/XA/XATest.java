@@ -1,7 +1,8 @@
 package com.moheiqonglin.distributeTx.sync.XA;
 
 
-import com.mysql.cj.jdbc.MysqlXADataSource;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlXADataSource;
 
 import javax.sql.XAConnection;
 import javax.sql.XADataSource;

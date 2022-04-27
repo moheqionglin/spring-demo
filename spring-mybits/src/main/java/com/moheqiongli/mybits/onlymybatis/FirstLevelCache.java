@@ -1,7 +1,6 @@
 package com.moheqiongli.mybits.onlymybatis;
 
 
-import com.moheqiongli.mybits.domain.Blog;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -26,6 +25,7 @@ public class FirstLevelCache {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
         try (SqlSession session = sqlSessionFactory.openSession()) {
+
             Blog blog1 = session.selectOne("mapper.BlogMapper.selectBlog", 1);
             System.out.println(blog1);
 //            session.update("mapper.BlogMapper.updateBlog", new Blog(1L, "t1",  "c1-" + Thread.currentThread().getId()));

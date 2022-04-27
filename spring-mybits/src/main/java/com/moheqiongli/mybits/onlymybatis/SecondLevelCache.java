@@ -1,6 +1,5 @@
 package com.moheqiongli.mybits.onlymybatis;
 
-import com.moheqiongli.mybits.domain.Blog;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -17,9 +16,12 @@ import java.io.InputStream;
 public class SecondLevelCache {
 
     public static void main(String[] args) throws IOException, InterruptedException {
+
+
         String resource = "only-mybits/mapper/mybits-conf.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
         Runnable runnable = () -> {
             try (SqlSession session = sqlSessionFactory.openSession()) {
                 Blog blog1 = session.selectOne("mapper.BlogMapper.selectBlog", 1);

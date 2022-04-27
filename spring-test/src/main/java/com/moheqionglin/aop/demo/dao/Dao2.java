@@ -42,6 +42,7 @@ public class Dao2 {
     }
 
     //1.3 不同类 无->无
+    @ValidCheck
     public void diffWu2WuDiffProduct(String key){
         System.out.println("Dao2->diffWu2WuDiffProduct : " + ContextHolder.getCache());
         dao1.function4(key + "-diff");

@@ -2,7 +2,12 @@ package com.moheqionglin.aop.demo.dao;
 
 import com.moheqionglin.aop.demo.ContextHolder;
 import com.moheqionglin.aop.demo.ValidCheck;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author wanli.zhou
@@ -10,13 +15,18 @@ import org.springframework.stereotype.Component;
  * @time 12/12/2018 5:04 PM
  */
 @Component
-public class Dao1 {
+public class Dao1 implements ApplicationContextAware {
+    private ApplicationContext applicationContext;
+    @Autowired
+    private Dao2 dao;
 
     //1.1 同类之间调用 有调用有
     @ValidCheck
     public void sameYou2YouSameProduct(String key){
         System.out.println("有 Dao1->sameYou2YouSameProduct : " + ContextHolder.getCache());
         function2(key);
+        dao.diffWu2WuDiffProduct(key);
+//        applicationContext.getBean(Dao2.class).diffWu2WuDiffProduct(key);
     }
     //1.1 同类之间调用 有调用有
     @ValidCheck
@@ -67,4 +77,8 @@ public class Dao1 {
         System.out.println("无 Dao1->function8 : " + ContextHolder.getCache());
     }
 
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
 }

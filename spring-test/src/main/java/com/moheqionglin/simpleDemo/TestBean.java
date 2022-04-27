@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 /**
  * @author wanli zhou
@@ -15,6 +16,10 @@ public class TestBean {
 
     @Autowired
     private TestDao testDao;
+
+    @Autowired
+    private List<AbstractT> ats;
+
     public TestBean(){
         System.out.println("TestBean consustor");
     }
@@ -37,6 +42,10 @@ public class TestBean {
         return "TestBean{" +
                 "name='" + name + '\'' +
                 '}';
+    }
+
+    public List<AbstractT> getAts() {
+        return ats;
     }
 }
 

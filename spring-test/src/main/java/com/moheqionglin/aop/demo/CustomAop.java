@@ -27,13 +27,13 @@ public class CustomAop {
 
         String key = joinPoint.getArgs()[0].toString();
 
-        ContextHolder.clearCache();
+//        ContextHolder.clearCache();
 
 
         if(!method.isAnnotationPresent(ValidCheck.class)){
             Object process1 = joinPoint.proceed();
             //恢复现场
-            ContextHolder.setCache(originKey);
+//            ContextHolder.setCache(originKey);
             return process1;
         }
 
